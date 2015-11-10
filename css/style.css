@@ -1,0 +1,33 @@
+.buttons {
+  border: 2px solid black;
+  border-radius: 5px;
+  width: 80px;
+}
+.buttons:hover {
+  background-color: blue;
+  color: white;
+}
+.buttons:hover:before {
+  content: "see ya!";
+}
+.buttons:hover .first {
+  display: none;
+}
+body {
+  color: #0000ff;
+}
+#demo {
+  border: 2px solid black;
+  border-radius: 5px;
+  width: 80px;
+}
+#demo:hover {
+  background-color: blue;
+  color: white;
+}
+#demo:hover:before {
+  content: "see ya!";
+}
+#demo:hover .first {
+  display: none;
+}

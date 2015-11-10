@@ -1,0 +1,27 @@
+@mainTheme: blue;
+
+.buttons {
+  border: 2px solid black;
+  border-radius: 5px;
+  width: 80px;
+  &:hover {
+    background-color: blue;
+    color:white;
+    &:before {
+      content: "see ya!";
+    }
+    .first {
+      display:none;
+    }
+  }
+
+}
+
+body {
+  color: @mainTheme;
+}
+
+#demo {
+  .buttons;
+
+}
