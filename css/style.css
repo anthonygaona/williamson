@@ -31,3 +31,29 @@ body {
 #demo:hover .first {
   display: none;
 }
+#gameWindow {
+  width: 1280px;
+  height: 720px;
+  position: relative;
+  margin-right: auto;
+  margin-left: auto;
+  overflow: hidden;
+}
+#introScreen {
+  width: 1280px;
+  height: 720px;
+}
+#btnStart {
+  position: relative;
+  left: 900px;
+  top: 400px;
+  width: 250px;
+}
+h1 {
+  color: white;
+  cursor: pointer;
+}
+#town,
+#player {
+  position: absolute;
+}
