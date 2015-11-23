@@ -3,6 +3,7 @@
 .border {
   border: 1px solid black;
 }
+/* animations */
 /* Styling */
 body {
   color: #0000ff;
@@ -15,6 +16,7 @@ body {
   margin-left: auto;
   overflow: hidden;
   background-image: url(../images/town.png);
+  background-position: top left;
 }
 #introScreen {
   width: 1280px;

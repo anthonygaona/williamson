@@ -23,7 +23,9 @@ function initializeGame(){
 	player.style.left = '200px';
 	player.style.top = '250px';
 
-	gameTimer = setInterval(gameloop, 50)
+	gameWin.style.backgroundPosition = "0px 0px";
+
+	var gameTimer = setInterval(gameloop, 50)
 }
 
 //Listens to events when user preses down on keyboard
@@ -65,10 +67,25 @@ function gameloop(){
 	moveMap();
 }
 
-//Sets map position
+//Changes map position
 function moveMap() {
 	if(player.style.top == "600px") {
-		gameWin.style.backgroundPosition = "0px 720px";
+		var mapChangeTime = setInterval(mapDown, 50);
+		//gameWin.style.backgroundPosition = "0px 720px";
+		//gameWin.className = "mapMoveDown";
 		// output.innerHTML = "hello";
+		if (gameWin.style.backgroundPosition = "0px 400px") {
+			clearInterval(mapChangeTime);
+		}
+	}
+	else if (player.style.top == "-10px") {
+		mapUp();
 	}
  }
+
+function mapDown() {
+	// var mapX = parseInt(gameWin.style.backgroundPosition);
+	var mapSpeed = -1;
+	gameWin.style.backgroundPosition = "0px " + (gameWin.style.backgroundPosition + mapSpeed) + "px" ;
+	console.log(gameWin.style.backgroundPosition);
+}

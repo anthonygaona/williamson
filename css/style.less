@@ -6,7 +6,27 @@
   border: 1px solid black;
 }
 
-
+/* animations */
+// @keyframes animatedBackground {
+// 	0% { background-position: 0 0; }
+// 	100% { background-position: -300px 0; }
+// }
+// @-moz-keyframes animatedBackground {
+// 	0% { background-position: 0 0; }
+// 	100% { background-position: -300px 0; }
+// }
+// @-webkit-keyframes animatedBackground {
+// 	0% { background-position: 0 0; }
+// 	100% { background-position: -300px 0; }
+// }
+// @-ms-keyframes animatedBackground {
+// 	0% { background-position: 0 0; }
+// 	100% { background-position: -300px 0; }
+// }
+// @-o-keyframes animatedBackground {
+// 	0% { background-position: 0 0; }
+// 	100% { background-position: -300px 0; }
+// }
 
 /* Styling */
 body {
@@ -20,7 +40,8 @@ body {
   margin-right:auto;
   margin-left:auto;
   overflow:hidden;
-  background-image: url(../images/town.png);
+  background-image: url(../images/town.png) ;
+  background-position: top left;
 }
 
 #introScreen{
@@ -51,3 +72,12 @@ h1{
   border: .border;
   background-color: black;
 }
+
+//Using javascript instead
+// .mapMoveDown {
+//   animation: animatedBackground 2s linear 1;
+// 	-moz-animation: animatedBackground 2s linear 1;
+// 	-webkit-animation: animatedBackground 2s linear 1;
+// 	-ms-animation: animatedBackground 2s linear 1;
+// 	-o-animation: animatedBackground 2s linear 1;
+// }
