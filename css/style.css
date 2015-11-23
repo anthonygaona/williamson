@@ -1,5 +1,8 @@
 /* variables */
 /* Mixins */
+.border {
+  border: 1px solid black;
+}
 /* Styling */
 body {
   color: #0000ff;
@@ -11,6 +14,7 @@ body {
   margin-right: auto;
   margin-left: auto;
   overflow: hidden;
+  background-image: url(../images/town.png);
 }
 #introScreen {
   width: 1280px;
@@ -29,4 +33,11 @@ h1 {
 #town,
 #player {
   position: absolute;
+}
+#status {
+  width: 1280px;
+  height: 50px;
+  margin: 0 auto;
+  border: .border;
+  background-color: black;
 }

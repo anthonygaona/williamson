@@ -6,18 +6,21 @@ var upArrowDown = false;
 var downArrowDown = false;
 const PLAYER_SPEED = 10;
 
+var gameWin = document.getElementById("gameWindow");
+
 function startGame(){
 	document.getElementById('introScreen').style.display = 'none';
 	initializeGame();
 }
 
 function initializeGame(){
-	town = document.getElementById('town');
-	town.style.left = '0px';
-	town.style.top = '0px';
+	// old code, works when an img tag exists in html
+	// town = document.getElementById('town');
+	// town.style.left = '0px';
+	// town.style.top = '0px';
 
 	player = document.getElementById('player');
-	player.style.left = '500px';
+	player.style.left = '200px';
 	player.style.top = '250px';
 
 	gameTimer = setInterval(gameloop, 50)
@@ -39,25 +42,33 @@ document.addEventListener('keyup', function(event){
 	if(event.keyCode==83) downArrowDown = false;
 });
 
-
-
-
-
 function gameloop(){
-	var townX = parseInt(town.style.left);
-	var townY = parseInt(town.style.top);
+	//Moves williason
+	var playerX = parseInt(player.style.left);
+	var playerY = parseInt(player.style.top);
 	if(leftArrowDown){
-		town.style.left = townX - PLAYER_SPEED + 'px';
+		player.style.left = playerX + PLAYER_SPEED + 'px';
 	}
 	if(rightArrowDown){
-		town.style.left = townX + PLAYER_SPEED + 'px';
+		player.style.left = playerX - PLAYER_SPEED + 'px';
 	}
 
 	if(upArrowDown){
-		town.style.top = townY + PLAYER_SPEED + 'px';
+		player.style.top = playerY - PLAYER_SPEED + 'px';
 	}
 
 	if(downArrowDown){
-		town.style.top = townY - PLAYER_SPEED + 'px';
+		player.style.top = playerY + PLAYER_SPEED + 'px';
 	}
+
+	//Moves Map
+	moveMap();
 }
+
+//Sets map position
+function moveMap() {
+	if(player.style.top == "600px") {
+		gameWin.style.backgroundPosition = "0px 720px";
+		// output.innerHTML = "hello";
+	}
+ }
