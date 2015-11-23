@@ -19,7 +19,7 @@
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css" />
 	<!-- My CSS -->
 	<link rel="stylesheet" href="css/style.css" />
-  <link href='https://fonts.googleapis.com/css?family=Lora' rel='stylesheet' type='text/css'>
+  <link href='https://fonts.googleapis.com/css?family=Lora' rel='stylesheet' type='text/css' />
 
   <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
   <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
@@ -28,23 +28,26 @@
     <script src="https://oss.maxcdn.com/respond/1.4.2/respond.min.js"></script>
   <![endif]-->
 </head>
-<body onload="initializeGame()">
+<body onload="">
   <div id="gameWindow">
+      <!-- Disappears -->
       <div id="introScreen" style="background-image: url(images/williamsonIntro.jpg);">
-              <div id="btnStart" class="button"  onclick="startGame()">
-                <h1>Start Game</h1>
-              </div>
-              <div id="btnStart" class="button"  onclick="startSettings()">
-                <h1>Settings</h1>
-              </div>
-              <div id="btnStart" class="button"  onclick="startTutorial()">
-                <h1>Game Tutorial</h1>
-              </div>
+        <div id="btnStart" class="button"  onclick="startGame()">
+          <h1>Start Game</h1>
         </div>
+        <div id="btnStart" class="button"  onclick="startSettings()">
+          <h1>Settings</h1>
+        </div>
+        <div id="btnStart" class="button"  onclick="startTutorial()">
+          <h1>Game Tutorial</h1>
+        </div>
+      </div>
 
-          <img id="town" src="images/town.png" />
-          <img id="player" src="images/run.png" />
-    </div>
+      <!-- Map -->
+      <img id="town" src="images/town.png" />
+      <!-- Willaimson Running -->
+      <img id="player" src="images/running.gif" />
+  </div> <!-- Game window -->
 
 
   <!-- jQuery -->

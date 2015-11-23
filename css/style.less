@@ -1,29 +1,13 @@
+/* variables */
 @mainTheme: blue;
 
-.buttons {
-  border: 2px solid black;
-  border-radius: 5px;
-  width: 80px;
-  &:hover {
-    background-color: blue;
-    color:white;
-    &:before {
-      content: "see ya!";
-    }
-    .first {
-      display:none;
-    }
-  }
+/* Mixins */
 
-}
 
+
+/* Styling */
 body {
   color: @mainTheme;
-}
-
-#demo {
-  .buttons;
-
 }
 
 #gameWindow{
@@ -55,5 +39,3 @@ h1{
 #town, #player{
   position:absolute;
 }
-
-
