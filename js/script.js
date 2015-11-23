@@ -16,7 +16,7 @@ function initializeGame(){
 	town.style.left = '0px';
 	town.style.top = '0px';
 
-	
+
 
 	player = document.getElementById('player');
 	player.style.left = '500px';
@@ -25,6 +25,7 @@ function initializeGame(){
 	gameTimer = setInterval(gameloop, 50)
 }
 
+//Listens to events
 document.addEventListener('keydown', function(event){
 	if(event.keyCode==68) leftArrowDown = true;
 	if(event.keyCode==65) rightArrowDown = true;
@@ -48,7 +49,7 @@ function gameloop(){
 	if(rightArrowDown){
 		town.style.left = townX + PLAYER_SPEED + 'px';
 	}
-	
+
 	if(upArrowDown){
 		town.style.top = townY + PLAYER_SPEED + 'px';
 	}
@@ -57,4 +58,3 @@ function gameloop(){
 		town.style.top = townY - PLAYER_SPEED + 'px';
 	}
 }
-
