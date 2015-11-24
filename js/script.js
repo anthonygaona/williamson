@@ -1,32 +1,40 @@
-var town; //set to entire map
+//var town; //set to entire map
 var player; //set to Williamson
+player = document.getElementById('player');
+
 var leftArrowDown = false;
 var rightArrowDown = false;
 var upArrowDown = false;
 var downArrowDown = false;
-const PLAYER_SPEED = 10;
+const PLAYER_SPEED = 15; //KEEP IT THIS NUMBER. Code depends this constant, being increments of 15.
 
+var btnStart = document.getElementById('btnStart');
 var gameWin = document.getElementById("gameWindow");
 
-function startGame(){
-	document.getElementById('introScreen').style.display = 'none';
-	initializeGame();
-}
+var gameTimer;
 
 function initializeGame(){
-	// old code, works when an img tag exists in html
+	// old code, works only when an img tag  of the map exists in html
 	// town = document.getElementById('town');
 	// town.style.left = '0px';
 	// town.style.top = '0px';
+	gameWin.style.backgroundImage = "url(images/town.png)";
+	gameWin.style.backgroundPosition = "0px 0px";
 
-	player = document.getElementById('player');
 	player.style.left = '200px';
 	player.style.top = '250px';
 
-	gameWin.style.backgroundPosition = "0px 0px";
-
-	var gameTimer = setInterval(gameloop, 50)
+	var gameTimer = setInterval(gameloop, 50);
 }
+
+//Start game
+function startGame(){
+	document.getElementById('introScreen').style.visibility = 'hidden';
+	initializeGame();
+}
+//hides start menu and loads game
+btnStart.addEventListener('click', startGame);
+
 
 //Listens to events when user preses down on keyboard
 document.addEventListener('keydown', function(event){
@@ -44,7 +52,14 @@ document.addEventListener('keyup', function(event){
 	if(event.keyCode==83) downArrowDown = false;
 });
 
-function gameloop(){
+//fires attack left click
+document.addEventListener('click', function() {
+	//alert("hello world");
+});
+
+
+
+function gameloop() {
 	//Moves williason
 	var playerX = parseInt(player.style.left);
 	var playerY = parseInt(player.style.top);
@@ -63,29 +78,40 @@ function gameloop(){
 		player.style.top = playerY + PLAYER_SPEED + 'px';
 	}
 
-	//Moves Map
-	moveMap();
+
+	moveUp(playerY);
+	quad2(playerY);
+	var output = document.getElementById('output');
+
+	return (
+			console.log(gameWin.style.backgroundPosition),
+			output.innerHTML = playerY
+		);
 }
 
-//Changes map position
-function moveMap() {
-	if(player.style.top == "600px") {
-		var mapChangeTime = setInterval(mapDown, 50);
-		//gameWin.style.backgroundPosition = "0px 720px";
-		//gameWin.className = "mapMoveDown";
-		// output.innerHTML = "hello";
-		if (gameWin.style.backgroundPosition = "0px 400px") {
-			clearInterval(mapChangeTime);
+	//Map moving functions. Each according to the position of background image.
+	//Quadrant One
+	function moveUp(y) {
+		if((y == 40) && (gameWin.style.backgroundPosition == "0px 0px")) {
+			console.log("map stays the same");
+		}
+	  else if((y == 610) && (gameWin.style.backgroundPosition = "0px 0px")) {
+			//console.log("move down");
+			gameWin.style.backgroundPosition = "0px 600px";
+			player.style.top = "150px";
+			//return console.log(gameWin.style.backgroundPosition);
 		}
 	}
-	else if (player.style.top == "-10px") {
-		mapUp();
-	}
- }
 
-function mapDown() {
-	// var mapX = parseInt(gameWin.style.backgroundPosition);
-	var mapSpeed = -1;
-	gameWin.style.backgroundPosition = "0px " + (gameWin.style.backgroundPosition + mapSpeed) + "px" ;
-	console.log(gameWin.style.backgroundPosition);
-}
+	function quad2(y) {
+		if((y == 45) && (gameWin.style.backgroundPosition == "0px 600px")) {
+			gameWin.style.backgroundPosition = "0px 0px";
+			player.style.top = "550px";
+		}
+		// else if((y == 610) && (gameWin.style.backgroundPosition = "0px 0px")) {
+		// 	//console.log("move down");
+		// 	gameWin.style.backgroundPosition = "0px 600px";
+		// 	player.style.top = "150px";
+		// 	//return console.log(gameWin.style.backgroundPosition);
+		// }
+	}
