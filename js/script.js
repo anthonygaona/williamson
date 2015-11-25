@@ -86,7 +86,7 @@ function gameloop() {
 
 	return (
 			console.log(gameWin.style.backgroundPosition),
-			output.innerHTML = playerY + " = y position"
+			output.innerHTML = playerY + " = y position" + "<br/>" + playerX + " = x position" 
 		);
 }
 
