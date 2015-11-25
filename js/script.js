@@ -11,6 +11,7 @@ const PLAYER_SPEED = 15; //KEEP IT THIS NUMBER. Code depends this constant, bein
 var btnStart = document.getElementById('btnStart');
 var gameWin = document.getElementById("gameWindow");
 
+var map = document.getElementById('map');
 var gameTimer;
 
 //Status bar variables
@@ -45,6 +46,9 @@ document.addEventListener('keydown', function(event){
 	if(event.keyCode==65) rightArrowDown = true;
 	if(event.keyCode==87) upArrowDown = true;
 	if(event.keyCode==83) downArrowDown = true;
+
+	//shows map
+	if(event.keyCode == 77) map.style.display = "block";
 });
 
 //Listens when user releases the keyboard
@@ -53,6 +57,10 @@ document.addEventListener('keyup', function(event){
 	if(event.keyCode==65) rightArrowDown = false;
 	if(event.keyCode==87) upArrowDown = false;
 	if(event.keyCode==83) downArrowDown = false;
+
+	//hides map
+	if(event.keyCode == 77) map.style.display = "none";
+
 });
 
 //fires attack left click

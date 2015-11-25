@@ -35,6 +35,7 @@ body {
   -khtml-user-select: none;
   -webkit-user-select: none;
   -o-user-select: none;
+  background-color: black;
 }
 
 #gameWindow{
@@ -49,7 +50,10 @@ body {
 #introScreen{
   width:1280px;
   height:720px;
-  //z-index: 10;
+  margin: 0 auto;
+  .border;
+  background-image: url(../images/williamsonIntro.jpg);
+  // z-index: 10;
 }
 
 #btnStart{
@@ -67,6 +71,18 @@ h1{
 #town, #player{
   position:absolute;
 }
+
+#map {
+  position: absolute;
+  top: 60px;
+  left: 220px;
+  width: 800px;
+  height:600px;
+  background-color: blue;
+  color:black;
+  display:none;
+}
+
 
 #status {
   width: 1280px;
