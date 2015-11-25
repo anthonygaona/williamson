@@ -42,6 +42,13 @@ h1 {
 #player {
   position: absolute;
 }
+#enemy1 {
+  background-image: url(../images/Enemy1.png);
+  background-repeat: no-repeat;
+  width: 255px;
+  height: 350px;
+  border: 1px solid white;
+}
 #map {
   position: absolute;
   top: 60px;

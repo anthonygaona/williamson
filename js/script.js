@@ -8,6 +8,8 @@ var upArrowDown = false;
 var downArrowDown = false;
 const PLAYER_SPEED = 15; //KEEP IT THIS NUMBER. Code depends this constant, being increments of 15.
 
+var enemy1 = document.getElementById('enemy1');
+
 var btnStart = document.getElementById('btnStart');
 var gameWin = document.getElementById("gameWindow");
 
@@ -29,6 +31,10 @@ function initializeGame(){
 	player.style.top = '250px';
 
 	var gameTimer = setInterval(gameloop, 50);
+
+	// enemy1.style.top = "100px";
+	// enemy1.style.left = "500px";
+	// enemy1.style.backgroundPosition = "-5px -5px";
 }
 
 //Start game
