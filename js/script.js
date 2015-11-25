@@ -13,6 +13,9 @@ var gameWin = document.getElementById("gameWindow");
 
 var gameTimer;
 
+//Status bar variables
+var status = document.getElementById('status');
+
 function initializeGame(){
 	// old code, works only when an img tag  of the map exists in html
 	// town = document.getElementById('town');
@@ -86,7 +89,7 @@ function gameloop() {
 
 	return (
 			console.log(gameWin.style.backgroundPosition),
-			output.innerHTML = playerY + " = y position" + "<br/>" + playerX + " = x position" 
+			output.innerHTML = playerY + " = y position" + "<br/>" + playerX + " = x position"
 		);
 }
 

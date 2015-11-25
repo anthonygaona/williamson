@@ -3,7 +3,7 @@
 
 /* Mixins */
 .border {
-  border: 1px solid black;
+  border: 1px solid white;
 }
 
 /* animations */
@@ -34,7 +34,7 @@ body {
   -moz-user-select: none;
   -khtml-user-select: none;
   -webkit-user-select: none;
-  -o-user-select: none; 
+  -o-user-select: none;
 }
 
 #gameWindow{
@@ -70,11 +70,114 @@ h1{
 
 #status {
   width: 1280px;
-  height: 50px;
+  height: 150px;
   margin: 0 auto;
   border: .border;
   background-color: black;
+  position:relative;
 }
+
+.output {
+  width: 300px;
+  .border;
+  height: 50px;
+  position:absolute;
+  top: 50px;
+  left: 900px;
+}
+
+/* Health */
+#healthBox {
+  position: absolute;
+  .border;
+  top: 20px;
+  left: 20px;
+  width: 300px;
+  overflow:hidden;
+}
+
+#healthBox p {
+  margin:0;
+  padding:0;
+}
+
+#healthbar {
+  .border;
+  position: relative
+  width: 250px;
+  height: 20px;
+  top:5px;
+  left:5px;
+  background-color: #ccc;
+  overflow:hidden;
+}
+
+#currenthealth {
+  background-color: red;
+  position: absolute;
+  height:20px;
+  width:300px;
+  left:-80px;
+}
+
+/* Magic start */
+#magicBox {
+  position: absolute;
+  .border;
+  top: 80px;
+  left:20px;
+  width: 300px;
+  overflow: hidden;
+}
+
+#magicBox p {
+  margin:0;
+  padding:0;
+}
+
+#magicbar {
+  .border;
+  position: relative
+  width: 250px;
+  height: 20px;
+  top:5px;
+  left:5px;
+  background-color: #ccc;
+  overflow:hidden;
+}
+
+#currentmagic {
+  background-color: red;
+  position: absolute;
+  height:20px;
+  width:300px;
+  left:-80px;
+}
+
+
+
+/* Sword start */
+#primaryWeapon {
+  position: absolute;
+  .border;
+  top: 20px;
+  left: 350px;
+}
+
+#secondaryWeapon {
+  position: absolute;
+  .border;
+  top: 20px;
+  left: 500px;
+}
+
+#objective {
+  position: absolute;
+  .border;
+  top:20px;
+  left:800px;
+}
+
 
 //Using javascript instead
 // .mapMoveDown {
