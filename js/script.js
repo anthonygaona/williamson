@@ -19,6 +19,19 @@ var gameTimer;
 //Status bar variables
 var status = document.getElementById('status');
 
+
+//parsed styles
+var playerX; //Left style, parsed in gameloop()
+var playerY; //Top style, parsed in gameloop()
+
+var enemyX;
+
+enemy1.style.width = "100px";
+
+
+// LET THE CODING BEGIN!
+////////////////////////////////////////////////////////////////////////////////////////
+
 function initializeGame(){
 	// old code, works only when an img tag  of the map exists in html
 	// town = document.getElementById('town');
@@ -79,8 +92,12 @@ document.addEventListener('click', function() {
 
 function gameloop() {
 	//Moves williason
-	var playerX = parseInt(player.style.left);
-	var playerY = parseInt(player.style.top);
+	playerX = parseInt(player.style.left);
+	playerY = parseInt(player.style.top);
+
+	enemyX = parseInt(enemy1.style.left);
+	enemyY = parseInt(enemy1.style.top);
+
 	if(leftArrowDown){
 		player.style.left = playerX + PLAYER_SPEED + 'px';
 		//changes player direction
@@ -89,7 +106,7 @@ function gameloop() {
 	if(rightArrowDown){
 		player.style.left = playerX - PLAYER_SPEED + 'px';
 		//changes player direction
-		player.className += " faceLeft"
+		player.className = " faceLeft"
 	}
 
 	if(upArrowDown){
@@ -98,6 +115,7 @@ function gameloop() {
 
 	if(downArrowDown){
 		player.style.top = playerY + PLAYER_SPEED + 'px';
+
 	}
 
 
@@ -105,6 +123,9 @@ function gameloop() {
 	quad2(playerY);
 	var output = document.getElementById('output');
 	output.style.fontSize = "20px";
+
+	hitDetect(playerX, enemyX, enemy1, player);
+
 
 	return (
 			//console.log(gameWin.style.backgroundPosition),
@@ -145,5 +166,14 @@ function gameloop() {
 	function primaryAttack() {
 		if(true) {
 			console.log('hit');
+		}
+	}
+
+	//basic hit detection
+	function hitDetect(a, b, c, d) {
+		//left side
+		if( (a + parseInt(c.style.width))  >= b) {
+			//console.log('hello world', a, b);
+			d.style.left = (b - 120) + "px";
 		}
 	}

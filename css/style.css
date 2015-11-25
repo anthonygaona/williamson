@@ -55,7 +55,6 @@ h1 {
   background-image: url(../images/Enemy1.png);
   background-size: 1800%;
   background-repeat: no-repeat;
-  width: 100px;
   height: 150px;
   border: 1px solid white;
 }
