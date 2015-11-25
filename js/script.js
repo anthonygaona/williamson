@@ -106,7 +106,7 @@ function gameloop() {
 	function quad2(y) {
 		if((y == 15) && (gameWin.style.backgroundPosition == "0px 600px")) {
 			gameWin.style.backgroundPosition = "0px 0px";
-			player.style.top = "550px"; 
+			player.style.top = "550px";
 		}
 		// else if((y == 610) && (gameWin.style.backgroundPosition = "0px 0px")) {
 		// 	//console.log("move down");
