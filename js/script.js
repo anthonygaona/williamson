@@ -24,17 +24,18 @@ function initializeGame(){
 	// town = document.getElementById('town');
 	// town.style.left = '0px';
 	// town.style.top = '0px';
+
 	gameWin.style.backgroundImage = "url(images/town.png)";
 	gameWin.style.backgroundPosition = "0px 0px";
 
 	player.style.left = '200px';
 	player.style.top = '250px';
 
-	var gameTimer = setInterval(gameloop, 50);
+	enemy1.style.top = "200px";
+	enemy1.style.left = "800px";
+	enemy1.style.backgroundPosition = "-10px -10px";
 
-	// enemy1.style.top = "100px";
-	// enemy1.style.left = "500px";
-	// enemy1.style.backgroundPosition = "-5px -5px";
+	var gameTimer = setInterval(gameloop, 50);
 }
 
 //Start game
@@ -82,9 +83,13 @@ function gameloop() {
 	var playerY = parseInt(player.style.top);
 	if(leftArrowDown){
 		player.style.left = playerX + PLAYER_SPEED + 'px';
+		//changes player direction
+		player.className = "";
 	}
 	if(rightArrowDown){
 		player.style.left = playerX - PLAYER_SPEED + 'px';
+		//changes player direction
+		player.className += " faceLeft"
 	}
 
 	if(upArrowDown){
@@ -102,7 +107,7 @@ function gameloop() {
 	output.style.fontSize = "20px";
 
 	return (
-			console.log(gameWin.style.backgroundPosition),
+			//console.log(gameWin.style.backgroundPosition),
 			output.innerHTML = playerY + " = y position" + "<br/>" + playerX + " = x position"
 		);
 }
@@ -132,4 +137,13 @@ function gameloop() {
 		// 	player.style.top = "150px";
 		// 	//return console.log(gameWin.style.backgroundPosition);
 		// }
+	}
+
+
+
+	//attacking enemy functions
+	function primaryAttack() {
+		if(true) {
+			console.log('hit');
+		}
 	}
