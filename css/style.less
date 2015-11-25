@@ -1,5 +1,5 @@
 /* variables */
-@mainTheme: blue;
+@mainTheme: white;
 
 /* Mixins */
 .border {
@@ -31,6 +31,10 @@
 /* Styling */
 body {
   color: @mainTheme;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none; 
 }
 
 #gameWindow{

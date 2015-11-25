@@ -82,10 +82,11 @@ function gameloop() {
 	moveUp(playerY);
 	quad2(playerY);
 	var output = document.getElementById('output');
+	output.style.fontSize = "20px";
 
 	return (
 			console.log(gameWin.style.backgroundPosition),
-			output.innerHTML = playerY
+			output.innerHTML = playerY + " = y position"
 		);
 }
 

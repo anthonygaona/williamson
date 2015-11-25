@@ -6,7 +6,11 @@
 /* animations */
 /* Styling */
 body {
-  color: #0000ff;
+  color: #ffffff;
+  -moz-user-select: none;
+  -khtml-user-select: none;
+  -webkit-user-select: none;
+  -o-user-select: none;
 }
 #gameWindow {
   width: 1280px;
