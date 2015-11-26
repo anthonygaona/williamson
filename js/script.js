@@ -176,7 +176,7 @@ function gameloop() {
 	function hitDetect(a, b, c, d) {
 		//left side
 		if((a + parseInt(d.style.width)) > b) {
-			if(){
+			if(true){
 				//console.log('hello world', a, b);
 				d.style.left = (b - 120) + "px";
 				console.log("hit enemy");
