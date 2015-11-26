@@ -1,6 +1,7 @@
 //var town; //set to entire map
 var player; //set to Williamson
 player = document.getElementById('player');
+player.style.width = "117px";
 
 var leftArrowDown = false;
 var rightArrowDown = false;
@@ -27,6 +28,7 @@ var playerY; //Top style, parsed in gameloop()
 var enemyX;
 
 enemy1.style.width = "100px";
+enemy1.style.height = "150px";
 
 
 // LET THE CODING BEGIN!
@@ -170,10 +172,14 @@ function gameloop() {
 	}
 
 	//basic hit detection
+										//playerX, enemyX, enemy1, player
 	function hitDetect(a, b, c, d) {
 		//left side
-		if( (a + parseInt(c.style.width))  >= b) {
-			//console.log('hello world', a, b);
-			d.style.left = (b - 120) + "px";
+		if((a + parseInt(d.style.width)) > b) {
+			if(){
+				//console.log('hello world', a, b);
+				d.style.left = (b - 120) + "px";
+				console.log("hit enemy");
+			}
 		}
 	}
