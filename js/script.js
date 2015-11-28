@@ -124,33 +124,35 @@ function gameloop() {
 
 	moveUp(playerY);
 	quad2(playerY);
+
 	var output = document.getElementById('output');
 	output.style.fontSize = "20px";
 
 	//hitDetect(playerX, enemyX, enemy1, player);
 
-	makeIt();
-
+	makeIt(); //collision detection
+	textBox();
 
 	return (
 			//console.log(gameWin.style.backgroundPosition),
 			output.innerHTML = playerY + " = y position" + "<br/>" + playerX + " = x position"
 		);
-}
+} //end game loop
 
 	//Map moving functions. Each according to the position of background image.
 	//Quadrant One
 	function moveUp(y) {
-		if((y == 40) && (gameWin.style.backgroundPosition == "0px 0px")) {
+		if((y < 40) && (gameWin.style.backgroundPosition == "0px 0px")) {
 			console.log("map stays the same");
 		}
-	  else if((y == 610) && (gameWin.style.backgroundPosition = "0px 0px")) {
+	  else if((y > 610) && (gameWin.style.backgroundPosition = "0px 0px")) {
 			//console.log("move down");
 			gameWin.style.backgroundPosition = "0px 600px";
 			player.style.top = "150px";
 			//return console.log(gameWin.style.backgroundPosition);
 		}
 	}
+
 
 	function quad2(y) {
 		if((y == 15) && (gameWin.style.backgroundPosition == "0px 600px")) {
@@ -165,8 +167,6 @@ function gameloop() {
 		}
 	}
 
-
-
 	//attacking enemy functions
 	function primaryAttack() {
 		if(true) {
@@ -174,25 +174,7 @@ function gameloop() {
 		}
 	}
 
-	// //basic hit detection
-	// 									//playerX, enemyX, enemy1, player
-	// function hitDetect(a, b, c, d) {
-	// 	var d_y = parseInt(d.style.top);
-	// 	var c_y = parseInt(c.style.top);
-	// 	//left side
-	// 	if( ((a + 120) == b ) && ( (d_y + parseInt(d.style.height)) > c_y) && ((a + 120) == b ) && ( d_y < (c_y + parseInt(c.style.height)) ) ) {
-	// 		d.style.left = b - parseInt(d.style.width) + "px";
-	// 		console.log("hello");
-	// 	}
-	//
-	// 	// else if( ((parseInt(d.style.top) + parseInt(d.style.height)) > parseInt(c.style.top)) && (a > c) ) {
-	// 	// 				//console.log('hello world', a, b);
-	// 	// 				console.log("hit enemy");
-	// 	// 				d.style.top = parseInt(c.style.top) - 130 + "px";
-	// 	// 			}
-	// }
-
-
+	//collision detection
 	function makeIt() {
 		if(rightArrowDown){
 						//first condition is for the left point and the second condition is for the right point
@@ -228,3 +210,25 @@ function gameloop() {
 			}
 		}
 	} //function
+
+
+	okay = 0;
+	function textBox() {
+		if( player.offsetTop > (enemy1.offsetTop - 10) && player.offsetTop < (enemy1.offsetTop + 100) ) {
+			console.log('you are near the enemy');
+			if(okay == 1) {
+				console.log("hi");
+				}
+			else if(okay == 2) {
+				console.log("whats your name?");
+				}
+			else if (okay == 3) {
+				console.log("bye!");
+				okay -= 3;
+				}
+		} // first if. checks if player is near bot.
+	} // function
+
+	enemy1.addEventListener('click', function() {
+		okay++;
+	});
