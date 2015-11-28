@@ -46,6 +46,15 @@ h1 {
 #enemy1 {
   border: 1px solid white;
 }
+#textBox {
+  position: absolute;
+  width: 400px;
+  height: 200px;
+  border: 1px solid white;
+  background-color: red;
+  top: 100px;
+  left: 500px;
+}
 .faceLeft {
   -moz-transform: scaleX(-1);
   -o-transform: scaleX(-1);
