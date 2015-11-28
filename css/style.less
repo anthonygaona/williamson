@@ -39,8 +39,8 @@ body {
 }
 
 #gameWindow{
-  width:1280px;
-  height:720px;
+  width : 1280px;
+	height : 720px;
   position:relative;
   margin-right:auto;
   margin-left:auto;
@@ -71,11 +71,14 @@ h1{
 #town, #player, #enemy1 {
   position:absolute;
 }
+#enemy1 {
+  .border;
+}
 
 //testing purposes
-#player {
-  .border
-}
+// #player {
+//   .border;
+// }
 
 
 //Flips image to the left
@@ -86,13 +89,6 @@ h1{
   transform: scaleX(-1);
   filter: FlipH;
   -ms-filter: "FlipH";
-}
-
-#enemy1 {
-  background-image: url(../images/Enemy1.png);
-  background-size: 1800%;
-  background-repeat: no-repeat;
-  .border;
 }
 
 #map {

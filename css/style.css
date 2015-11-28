@@ -43,7 +43,7 @@ h1 {
 #enemy1 {
   position: absolute;
 }
-#player {
+#enemy1 {
   border: 1px solid white;
 }
 .faceLeft {
@@ -53,12 +53,6 @@ h1 {
   transform: scaleX(-1);
   filter: FlipH;
   -ms-filter: "FlipH";
-}
-#enemy1 {
-  background-image: url(../images/Enemy1.png);
-  background-size: 1800%;
-  background-repeat: no-repeat;
-  border: 1px solid white;
 }
 #map {
   position: absolute;
