@@ -157,12 +157,12 @@ function gameloop() {
 			gameWin.style.backgroundPosition = "0px 0px";
 			player.style.top = "550px";
 		}
-		// else if((y == 610) && (gameWin.style.backgroundPosition = "0px 0px")) {
-		// 	//console.log("move down");
-		// 	gameWin.style.backgroundPosition = "0px 600px";
-		// 	player.style.top = "150px";
-		// 	//return console.log(gameWin.style.backgroundPosition);
-		// }
+		else if((y == 610) && (gameWin.style.backgroundPosition = "0px 0px")) {
+			//console.log("move down");
+			gameWin.style.backgroundPosition = "0px 600px";
+			player.style.top = "150px";
+			//return console.log(gameWin.style.backgroundPosition);
+		}
 	}
 
 
@@ -196,27 +196,35 @@ function gameloop() {
 	function makeIt() {
 		if(rightArrowDown){
 						//first condition is for the left point and the second condition is for the right point
-						if( (playerX > (enemyX - parseInt(player.width) - 5) ) && (playerX < enemyX + parseInt(enemy1.width) + 5 ) ) {
-										if((playerY > (enemyY - parseInt(player.height))) && (playerY < (enemyY + parseInt(enemy1.height)))) {
+						if( (playerX > (enemyX - parseInt(player.width) - 5) ) && (playerX < enemyX + parseInt(enemy1.width) - 15 ) ) {
+										if( (playerY > (enemyY - parseInt(player.height))) && (playerY < (enemyY + parseInt(enemy1.height))) ) {
 											player.style.left = enemyX - parseInt(player.width) + "px";
 										} //third condition
 						} //second condition
 		} //first condition
 
 		if(upArrowDown){
-			if( (playerY > enemyY - 5) && (playerY < (enemyY + parseInt(enemy1.height) + 5 )) ) {
-						if( (playerX > (enemyX - parseInt(player.width)) ) && (playerX < (enemyX + parseInt(enemy1.width))) ){
-							player.style.top = enemyY + parseInt(enemy1.height)  + "px";
-						}
-			}
+				if( (playerY > enemyY - 5) && (playerY < (enemyY + parseInt(enemy1.height) + 5 )) ) {
+							if( (playerX > (enemyX - parseInt(player.width)) ) && (playerX < (enemyX + parseInt(enemy1.width))) ){
+								player.style.top = enemyY + parseInt(enemy1.height)  + "px";
+							}
+				}
 		}
 
+		if(leftArrowDown){
+				if((player.offsetLeft < (enemy1.offsetLeft + parseInt(enemy1.width) - 5)) && (player.offsetLeft > enemy1.offsetLeft )){
+					//second if statement checks to see if the players top is between the top of the obstacle and the bottom of the obstacle. But in order to make sure the player does walk through the top, the player.height must be subtracted from the obstacle.offsetTop.
+						if((playerY > (enemyY - parseInt(player.height))) && (playerY < (enemyY + parseInt(enemy1.height)))){
+							player.style.left = enemyX + parseInt(enemy1.width) + "px"; //left side of enemy
+						}
+				}
+		}
 
-
-
-
-
-
-
-
+		if(downArrowDown){
+			if((playerY > (enemyY - player.height - 5)) && (playerY < enemyY + enemy1.height) ){
+					if((playerX > (enemyX - parseInt(player.width) )) && (player.offsetLeft < (enemy1.offsetLeft + enemy1.width))){
+						player.style.top = enemy1.offsetTop - player.height + "px";
+					}
+			}
+		}
 	} //function
