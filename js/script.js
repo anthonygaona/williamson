@@ -212,23 +212,46 @@ function gameloop() {
 	} //function
 
 
+
+
+	var dialogueBox = document.getElementById('dialogue');
+	dialogueBox.style.visibility = 'hidden';
+	var talking = document.getElementById('textBox');
+	var heading = document.getElementById('person');
+
 	okay = 0;
 	function textBox() {
-		if( player.offsetTop > (enemy1.offsetTop - 10) && player.offsetTop < (enemy1.offsetTop + 100) ) {
+		"use strict";
+		if( player.offsetTop > (enemy1.offsetTop - player.width - 10) && player.offsetTop < (enemy1.offsetTop + 100) && player.offsetLeft > (enemy1.offsetLeft - player.width - 10) && player.offsetLeft < (enemy1.offsetLeft + enemy1.width + 10)) {
 			console.log('you are near the enemy');
 			if(okay == 1) {
+				person.innerHTML = 'Goblin says:';
 				console.log("hi");
+				dialogueBox.style.visibility = 'visible';
+				talking.innerHTML = 'hi';
 				}
 			else if(okay == 2) {
 				console.log("whats your name?");
+				talking.innerHTML = 'whats your name?';
 				}
 			else if (okay == 3) {
 				console.log("bye!");
-				okay -= 3;
+				talking.innerHTML = 'see you later!';
+				okay++;
 				}
+			else if (okay == 5) {
+				dialogueBox.style.visibility = 'hidden';
+				okay -= 5;
+			}
 		} // first if. checks if player is near bot.
 	} // function
 
+
 	enemy1.addEventListener('click', function() {
-		okay++;
+		if( player.offsetTop > (enemy1.offsetTop - player.width - 10) && player.offsetTop < (enemy1.offsetTop + 100) && player.offsetLeft > (enemy1.offsetLeft - player.width - 10) && player.offsetLeft < (enemy1.offsetLeft + enemy1.width + 10)) {
+			okay++;
+			if(okay > 5) {
+				okay = 0;
+			}
+		}
 	});
