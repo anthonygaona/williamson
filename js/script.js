@@ -91,9 +91,6 @@ document.addEventListener('click', function() {
 	//alert("hello world");
 });
 
-
-var player_src = player.src.split('/').pop();
-
 function gameloop() {
 	//Moves williason
 	playerX = parseInt(player.style.left);
@@ -133,17 +130,6 @@ function gameloop() {
 
 	makeIt(); //collision detection
 	textBox();
-
-
-	if(leftArrowDown || rightArrowDown || upArrowDown || downArrowDown){
-		//the split looks at the src string (string that points to the picture file) and looks at all the "/" and takes off the information after the last "/". In this case, it will be the file name of the image.
-		player_src = player.src.split('/').pop();
-		if(player_src != "running.gif"){
-			player.src = "running.gif";
-		}
-	} else {
-		player.src = "run.png";
-	}
 
 	return (
 			//console.log(gameWin.style.backgroundPosition),
