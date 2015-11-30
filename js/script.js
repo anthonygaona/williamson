@@ -14,6 +14,7 @@ var downArrowDown = false;
 const PLAYER_SPEED = 15; //KEEP IT THIS NUMBER. Code depends this constant, being increments of 15.
 
 var enemy1 = document.getElementById('enemy1');
+enemy1.health = 100;
 
 var btnStart = document.getElementById('btnStart');
 var gameWin = document.getElementById("gameWindow");
