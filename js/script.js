@@ -66,6 +66,50 @@ function startGame(){
 //hides start menu and loads game
 btnStart.addEventListener('click', startGame);
 
+//changes weapons
+
+var primaryWeapon = document.getElementById("primaryWeapon");
+var secondaryWeapon = document.getElementById("secondaryWeapon");
+
+var weaponList = [
+	"images/bows1.png",
+	"images/sword1.png"
+	];
+
+var magicList = ["images/waves7.png",
+"images/fire.png",
+"images/falling3.png"];
+
+primaryWeapon.src = weaponList[0];
+secondaryWeapon.src = magicList[0];
+
+var weaponPosition = 1;
+var magicPosition = 1;
+
+function changePic(){
+	primaryWeapon.src = weaponList[weaponPosition];
+	weaponPosition++;
+	if(weaponPosition > weaponList.length -1) {
+		weaponPosition = 0;
+	}
+	return (
+		console.log(weaponPosition),
+		console.log(weaponList[weaponPosition])
+		);
+}
+
+function changePic2(){
+	secondaryWeapon.src = magicList[magicPosition];
+	magicPosition++;
+	if(magicPosition > magicList.length -1) {
+		magicPosition = 0;
+	}
+	return (
+		console.log(magicPosition),
+		console.log(magicList[weaponPosition])
+		);
+}
+
 
 //Listens to events when user preses down on keyboard
 document.addEventListener('keydown', function(event){
@@ -73,6 +117,8 @@ document.addEventListener('keydown', function(event){
 	if(event.keyCode==65) leftArrowDown  = true;
 	if(event.keyCode==87) upArrowDown = true;
 	if(event.keyCode==83) downArrowDown = true;
+	if(event.keyCode == 80) changePic();
+if(event.keyCode == 76) changePic2();
 
 	//shows map
 	if(event.keyCode == 77) map.style.display = "block";
