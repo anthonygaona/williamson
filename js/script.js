@@ -11,6 +11,9 @@ var rightArrowDown = false;
 var upArrowDown = false;
 var downArrowDown = false;
 
+//This boolean sets up whether an enemy is visible based on health
+var attack = true;
+
 const PLAYER_SPEED = 15; //KEEP IT THIS NUMBER. Code depends this constant, being increments of 15.
 
 var enemy1 = document.getElementById('enemy1');
@@ -175,7 +178,7 @@ function gameloop() {
 
 	//collision detection
 	function makeIt() {
-		if(rightArrowDown){
+		if(rightArrowDown && attack){
 						//first condition is for the left point and the second condition is for the right point
 						if( (playerX > (enemyX - parseInt(player.width) - 5) ) && (playerX < enemyX + parseInt(enemy1.width) - 15 ) ) {
 										if( (playerY > (enemyY - parseInt(player.height))) && (playerY < (enemyY + parseInt(enemy1.height))) ) {
@@ -184,7 +187,7 @@ function gameloop() {
 						} //second condition
 		} //first condition
 
-		if(upArrowDown){
+		if(upArrowDown && attack){
 				if( (playerY > enemyY - 5) && (playerY < (enemyY + parseInt(enemy1.height) + 5 )) ) {
 							if( (playerX > (enemyX - parseInt(player.width)) ) && (playerX < (enemyX + parseInt(enemy1.width))) ){
 								player.style.top = enemyY + parseInt(enemy1.height)  + "px";
@@ -192,7 +195,7 @@ function gameloop() {
 				}
 		}
 
-		if(leftArrowDown){
+		if(leftArrowDown && attack){
 				if((player.offsetLeft < (enemy1.offsetLeft + parseInt(enemy1.width) - 5)) && (player.offsetLeft > enemy1.offsetLeft )){
 					//second if statement checks to see if the players top is between the top of the obstacle and the bottom of the obstacle. But in order to make sure the player does walk through the top, the player.height must be subtracted from the obstacle.offsetTop.
 						if((playerY > (enemyY - parseInt(player.height))) && (playerY < (enemyY + parseInt(enemy1.height)))){
@@ -201,7 +204,7 @@ function gameloop() {
 				}
 		}
 
-		if(downArrowDown){
+		if(downArrowDown && attack){
 			if((playerY > (enemyY - player.height - 5)) && (playerY < enemyY + enemy1.height) ){
 					if((playerX > (enemyX - parseInt(player.width) )) && (player.offsetLeft < (enemy1.offsetLeft + enemy1.width))){
 						player.style.top = enemy1.offsetTop - player.height + "px";
@@ -218,39 +221,61 @@ function gameloop() {
 	var talking = document.getElementById('textBox');
 	var heading = document.getElementById('person');
 
-	okay = 0;
+	// okay = 0;
+	// function textBox() {
+	// 	"use strict";
+	// 	if( player.offsetTop > (enemy1.offsetTop - player.width - 10) && player.offsetTop < (enemy1.offsetTop + 100) && player.offsetLeft > (enemy1.offsetLeft - player.width - 10) && player.offsetLeft < (enemy1.offsetLeft + enemy1.width + 10)) {
+	// 		console.log('you are near the enemy');
+	// 		if(okay == 1) {
+	// 			person.innerHTML = 'Goblin says:';
+	// 			console.log("hi");
+	// 			dialogueBox.style.visibility = 'visible';
+	// 			talking.innerHTML = 'hi';
+	// 			}
+	// 		else if(okay == 2) {
+	// 			console.log("whats your name?");
+	// 			talking.innerHTML = 'whats your name?';
+	// 			}
+	// 		else if (okay == 3) {
+	// 			console.log("bye!");
+	// 			talking.innerHTML = 'see you later!';
+	// 			okay++;
+	// 			}
+	// 		else if (okay == 5) {
+	// 			dialogueBox.style.visibility = 'hidden';
+	// 			okay -= 5;
+	// 		}
+	// 	} // first if. checks if player is near bot.
+	// } // function
+
+	// enemy1.addEventListener('click', function() {
+	// 	if( player.offsetTop > (enemy1.offsetTop - player.width - 10) && player.offsetTop < (enemy1.offsetTop + 100) && player.offsetLeft > (enemy1.offsetLeft - player.width - 10) && player.offsetLeft < (enemy1.offsetLeft + enemy1.width + 10)) {
+	// 		okay++;
+	// 		if(okay > 5) {
+	// 			okay = 0;
+	// 		}
+	// 	}
+	// });
+
 	function textBox() {
 		"use strict";
 		if( player.offsetTop > (enemy1.offsetTop - player.width - 10) && player.offsetTop < (enemy1.offsetTop + 100) && player.offsetLeft > (enemy1.offsetLeft - player.width - 10) && player.offsetLeft < (enemy1.offsetLeft + enemy1.width + 10)) {
 			console.log('you are near the enemy');
-			if(okay == 1) {
-				person.innerHTML = 'Goblin says:';
-				console.log("hi");
-				dialogueBox.style.visibility = 'visible';
-				talking.innerHTML = 'hi';
-				}
-			else if(okay == 2) {
-				console.log("whats your name?");
-				talking.innerHTML = 'whats your name?';
-				}
-			else if (okay == 3) {
-				console.log("bye!");
-				talking.innerHTML = 'see you later!';
-				okay++;
-				}
-			else if (okay == 5) {
-				dialogueBox.style.visibility = 'hidden';
-				okay -= 5;
-			}
+
 		} // first if. checks if player is near bot.
 	} // function
 
+//var hit = Math.floor(Math.random() * 90);
 
 	enemy1.addEventListener('click', function() {
 		if( player.offsetTop > (enemy1.offsetTop - player.width - 10) && player.offsetTop < (enemy1.offsetTop + 100) && player.offsetLeft > (enemy1.offsetLeft - player.width - 10) && player.offsetLeft < (enemy1.offsetLeft + enemy1.width + 10)) {
-			okay++;
-			if(okay > 5) {
-				okay = 0;
+			enemy1.health -= Math.floor(Math.random() * 90);
+			alert(enemy1.health);
+			if(enemy1.health == 0 || enemy1.health < 0) {
+				enemy1.style.display = "none";
+				enemy1.style.zIndex = -1;
+				attack = false;
+				enemy1.health = 100;
 			}
 		}
 	});
