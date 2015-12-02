@@ -81,7 +81,7 @@ h1 {
   height: 150px;
   margin: 0 auto;
   border: .border;
-  background-color: black;
+  background-image: url(../images/status.jpg);
   position: relative;
 }
 .output {
