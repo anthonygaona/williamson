@@ -33,38 +33,46 @@ var playerX; //Left style, parsed in gameloop()
 var playerY; //Top style, parsed in gameloop()
 
 var enemyX;
+var enemyHealth;
+
+var	town = document.getElementById('town');
+
+var townX; //left position of background map. Set in initializeGame()
+var townY; //top position of background map. Set in initializeGame()
 
 // LET THE CODING BEGIN!
 ////////////////////////////////////////////////////////////////////////////////////////
-
-function initializeGame(){
-	// old code, works only when an img tag  of the map exists in html
-	// town = document.getElementById('town');
-	// town.style.left = '0px';
-	// town.style.top = '0px';
-
-	gameWin.style.backgroundImage = "url(images/town.png)";
-	gameWin.style.backgroundPosition = "0px 0px";
-
-	player.style.left = '200px';
-	player.style.top = '250px';
-
-	var obX = Math.floor(Math.random() * gameWidth/2);
-	var obY = Math.floor(Math.random() * gameHeight/2);
-
-	enemy1.style.top = obX + "px";
-	enemy1.style.left = obY + "px";
-
-	var gameTimer = setInterval(gameloop, 50);
-}
 
 //Start game
 function startGame(){
 	document.getElementById('introScreen').style.visibility = 'hidden';
 	initializeGame();
 }
+
+//Main Menu
 //hides start menu and loads game
 btnStart.addEventListener('click', startGame);
+
+function initializeGame(){
+	//Sets map to correct position
+	town.style.left = '0px';
+	town.style.top = '0px';
+
+	//Sets player position
+	player.style.left = '200px';
+	player.style.top = '250px';
+
+	//variables for random position of enemy/obstacle
+	var obX = Math.floor(Math.random() * gameWidth/2);
+	var obY = Math.floor(Math.random() * gameHeight/2);
+
+	//sets random position of enemy
+	enemy1.style.top = obX + "px";
+	enemy1.style.left = obY + "px";
+
+	//begins gameloop animation
+	var gameTimer = setInterval(gameloop, 50);
+}
 
 //changes weapons
 
@@ -85,6 +93,13 @@ secondaryWeapon.src = magicList[0];
 
 var weaponPosition = 1;
 var magicPosition = 1;
+
+//first convo
+function convoONE() {
+	if(town.style.left == "-1280px" && town.style.top == "0px") {
+		console.log("hello world");
+	}
+}
 
 function changePic(){
 	primaryWeapon.src = weaponList[weaponPosition];
@@ -113,12 +128,14 @@ function changePic2(){
 
 //Listens to events when user preses down on keyboard
 document.addEventListener('keydown', function(event){
+	//player movement
 	if(event.keyCode==68) rightArrowDown = true;
 	if(event.keyCode==65) leftArrowDown  = true;
 	if(event.keyCode==87) upArrowDown = true;
 	if(event.keyCode==83) downArrowDown = true;
+
 	if(event.keyCode == 80) changePic();
-if(event.keyCode == 76) changePic2();
+  if(event.keyCode == 76) changePic2();
 
 	//shows map
 	if(event.keyCode == 77) map.style.display = "block";
@@ -136,11 +153,6 @@ document.addEventListener('keyup', function(event){
 
 });
 
-//fires attack left click
-document.addEventListener('click', function() {
-	//alert("hello world");
-});
-
 function gameloop() {
 	//Moves williason
 	playerX = parseInt(player.style.left);
@@ -148,6 +160,11 @@ function gameloop() {
 
 	enemyX = parseInt(enemy1.style.left);
 	enemyY = parseInt(enemy1.style.top);
+
+	enemyHealth = document.getElementById("enemyHealth");
+	enemyHealth.style.left = (enemyX + 50) + "px";
+	enemyHealth.style.top = (enemyY - 50) + "px";
+	enemyHealth.style.display = "none";
 
 	if(rightArrowDown){
 		player.style.left = playerX + PLAYER_SPEED + 'px';
@@ -166,12 +183,32 @@ function gameloop() {
 
 	if(downArrowDown){
 		player.style.top = playerY + PLAYER_SPEED + 'px';
-
 	}
 
+	// moveUp(playerY);
+	// quad2(playerY);
 
-	moveUp(playerY);
-	quad2(playerY);
+	townX = parseInt(town.style.left);
+	townY = parseInt(town.style.top);
+
+	//map moving
+	if(playerX > 1100) {
+		town.style.left = (townX - 1280) + "px";
+		player.style.left = "30px";
+	}
+	else if (playerX < 20) {
+		town.style.left = (townX + 1280) + "px";
+		player.style.left = "600px";
+	}
+	else if(playerY < 40) {
+		town.style.top = (townY + 720) +"px";
+		player.style.top = "600px";
+	}
+	else if(playerY > 660) {
+		town.style.top = (townY - 720) + "px";
+		player.style.top = "100px";
+	}
+	//end map moving
 
 	var output = document.getElementById('output');
 	output.style.fontSize = "20px";
@@ -179,7 +216,9 @@ function gameloop() {
 	//hitDetect(playerX, enemyX, enemy1, player);
 
 	makeIt(); //collision detection
-	textBox();
+	//textBox();
+	enemyHealthBox();
+	convoONE();
 
 	return (
 			//console.log(gameWin.style.backgroundPosition),
@@ -187,33 +226,18 @@ function gameloop() {
 		);
 } //end game loop
 
-	//Map moving functions. Each according to the position of background image.
-	//Quadrant One
-	function moveUp(y) {
-		if((y < 40) && (gameWin.style.backgroundPosition == "0px 0px")) {
-			console.log("map stays the same");
-		}
-	  else if((y > 610) && (gameWin.style.backgroundPosition = "0px 0px")) {
-			//console.log("move down");
-			gameWin.style.backgroundPosition = "0px 600px";
-			player.style.top = "150px";
-			//return console.log(gameWin.style.backgroundPosition);
-		}
-	}
-
-
-	function quad2(y) {
-		if((y == 15) && (gameWin.style.backgroundPosition == "0px 600px")) {
-			gameWin.style.backgroundPosition = "0px 0px";
-			player.style.top = "550px";
-		}
-		else if((y == 610) && (gameWin.style.backgroundPosition = "0px 0px")) {
-			//console.log("move down");
-			gameWin.style.backgroundPosition = "0px 600px";
-			player.style.top = "150px";
-			//return console.log(gameWin.style.backgroundPosition);
-		}
-	}
+	//Map moving functions. Each according to the position of town image.
+	// function moveUp(y) {
+	// 	if(y < 40) {
+	// 		town.style.top = townY + 600 + "px";
+	// 	}
+	//   else if(y > 610) {
+	// 		//console.log("move down");
+	// 		town.style.top = (townY - 600) + "px";
+	// 		player.style.top = "150px";
+	// 		//return console.log();
+	// 	}
+	// }
 
 	//attacking enemy functions
 	function primaryAttack() {
@@ -259,14 +283,13 @@ function gameloop() {
 		}
 	} //function
 
-
-
-
+	//The text box for talking to NPCs
 	var dialogueBox = document.getElementById('dialogue');
 	dialogueBox.style.visibility = 'hidden';
 	var talking = document.getElementById('textBox');
 	var heading = document.getElementById('person');
 
+	//be sure to comment out textbox below
 	// okay = 0;
 	// function textBox() {
 	// 	"use strict";
@@ -294,6 +317,7 @@ function gameloop() {
 	// 	} // first if. checks if player is near bot.
 	// } // function
 
+
 	// enemy1.addEventListener('click', function() {
 	// 	if( player.offsetTop > (enemy1.offsetTop - player.width - 10) && player.offsetTop < (enemy1.offsetTop + 100) && player.offsetLeft > (enemy1.offsetLeft - player.width - 10) && player.offsetLeft < (enemy1.offsetLeft + enemy1.width + 10)) {
 	// 		okay++;
@@ -303,11 +327,11 @@ function gameloop() {
 	// 	}
 	// });
 
-	function textBox() {
+	function enemyHealthBox() {
 		"use strict";
 		if( player.offsetTop > (enemy1.offsetTop - player.width - 10) && player.offsetTop < (enemy1.offsetTop + 100) && player.offsetLeft > (enemy1.offsetLeft - player.width - 10) && player.offsetLeft < (enemy1.offsetLeft + enemy1.width + 10)) {
 			console.log('you are near the enemy');
-
+			enemyHealth.style.display = "block";
 		} // first if. checks if player is near bot.
 	} // function
 
@@ -316,9 +340,10 @@ function gameloop() {
 	enemy1.addEventListener('click', function() {
 		if( player.offsetTop > (enemy1.offsetTop - player.width - 10) && player.offsetTop < (enemy1.offsetTop + 100) && player.offsetLeft > (enemy1.offsetLeft - player.width - 10) && player.offsetLeft < (enemy1.offsetLeft + enemy1.width + 10)) {
 			enemy1.health -= Math.floor(Math.random() * 90);
-			alert(enemy1.health);
+			enemyHealth.innerHTML = enemy1.health + "%";
 			if(enemy1.health == 0 || enemy1.health < 0) {
 				enemy1.style.display = "none";
+				enemyHealth.style.display = "none";
 				enemy1.style.zIndex = -1;
 				attack = false;
 				enemy1.health = 100;

@@ -40,11 +40,17 @@ h1 {
 }
 #town,
 #player,
-#enemy1 {
+#enemy1,
+#enemyHealth {
   position: absolute;
 }
 #enemy1 {
   border: 1px solid white;
+}
+#enemyHealth {
+  color: red;
+  font-size: 26px;
+  border-radius: 10px;
 }
 #dialogue {
   position: absolute;
@@ -84,7 +90,7 @@ h1 {
   height: 150px;
   margin: 0 auto;
   border: .border;
-  background-image: url(../images/status.jpg);
+  background-color: black;
   position: relative;
 }
 .output {
