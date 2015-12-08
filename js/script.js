@@ -13,6 +13,8 @@ var output = document.getElementById('output');
 output.style.fontSize = "20px";
 //END TESTING
 
+var girl = document.getElementById("girl");
+
 //dimensions of game window
 var gameWidth = parseInt(window.getComputedStyle(document.querySelector('#gameWindow')).getPropertyValue('width'));
 var gameHeight = parseInt(window.getComputedStyle(document.querySelector('#gameWindow')).getPropertyValue('height'));
@@ -102,10 +104,16 @@ function initializeGame(){
 	var gameTimer = setInterval(gameloop, 50);
 }
 
-//first convo
+//first convo (map position detection)
 function convoONE() {
 	if(town.style.left == "-1280px" && town.style.top == "0px") {
 		console.log("hello world");
+		girl.style.visibility = "visible";
+		girl.style.left = "500px";
+		girl.style.top = "300px";
+	}
+	else {
+		girl.style.visibility = "hidden";
 	}
 }
 
@@ -163,12 +171,15 @@ document.addEventListener('keyup', function(event){
 
 //Begin Game loop
 function gameloop() {
-	//Moves williason
+
 	playerX = parseInt(player.style.left);
 	playerY = parseInt(player.style.top);
 
 	enemyX = parseInt(enemy1.style.left);
 	enemyY = parseInt(enemy1.style.top);
+
+	girlX = parseInt(girl.style.left);
+	girlY = parseInt(girl.style.top);
 
 	enemyHealth = document.getElementById("enemyHealth");
 	enemyHealth.style.left = (enemyX + 50) + "px";
@@ -218,7 +229,10 @@ function gameloop() {
 	}
 	//end map moving
 
-	makeIt(); //collision detection
+	//These makeit() functions detect collision between player and objects
+	makeIt(playerX, playerY, enemyX, enemyY, player, enemy1); //collision detection
+	makeIt(playerX, playerY, girlX, girlY, player, girl); //collision detection
+
 	enemyHealthBox();
 	convoONE();
 	textBox();
@@ -238,37 +252,37 @@ function primaryAttack() {
 }
 
 //collision detection
-function makeIt() {
+function makeIt(a, b, c, d, obj1, obj2) {
 	if(rightArrowDown && attack){
 					//first condition is for the left point and the second condition is for the right point
-					if( (playerX > (enemyX - parseInt(player.width) - 5) ) && (playerX < enemyX + parseInt(enemy1.width) - 15 ) ) {
-									if( (playerY > (enemyY - parseInt(player.height))) && (playerY < (enemyY + parseInt(enemy1.height))) ) {
-										player.style.left = enemyX - parseInt(player.width) + "px";
+					if( (a > (c - parseInt(obj1.width) - 5) ) && (a < c + parseInt(obj2.width) - 15 ) ) {
+									if( (b > (d - parseInt(obj1.height))) && (b < (d + parseInt(obj2.height))) ) {
+										obj1.style.left = c - parseInt(obj1.width) + "px";
 									} //third condition
 					} //second condition
 	} //first condition
 
 	if(upArrowDown && attack){
-			if( (playerY > enemyY - 5) && (playerY < (enemyY + parseInt(enemy1.height) + 5 )) ) {
-						if( (playerX > (enemyX - parseInt(player.width)) ) && (playerX < (enemyX + parseInt(enemy1.width))) ){
-							player.style.top = enemyY + parseInt(enemy1.height)  + "px";
+			if( (b > d - 5) && (b < (d + parseInt(obj2.height) + 5 )) ) {
+						if( (a > (c - parseInt(obj1.width)) ) && (a < (c + parseInt(obj2.width))) ){
+							obj1.style.top = d + parseInt(obj2.height)  + "px";
 						}
 			}
 	}
 
 	if(leftArrowDown && attack){
-			if((player.offsetLeft < (enemy1.offsetLeft + parseInt(enemy1.width) - 5)) && (player.offsetLeft > enemy1.offsetLeft )){
-				//second if statement checks to see if the players top is between the top of the obstacle and the bottom of the obstacle. But in order to make sure the player does walk through the top, the player.height must be subtracted from the obstacle.offsetTop.
-					if((playerY > (enemyY - parseInt(player.height))) && (playerY < (enemyY + parseInt(enemy1.height)))){
-						player.style.left = enemyX + parseInt(enemy1.width) + "px"; //left side of enemy
+			if((obj1.offsetLeft < (obj2.offsetLeft + parseInt(obj2.width) - 5)) && (obj1.offsetLeft > obj2.offsetLeft )){
+				//second if statement checks to see if the plaayers top is between the top of the obstacle and the bottom of the obstacle. But in order to make sure the plaayer does walk through the top, the plaayer.height must be subtracted from the obstacle.offsetTop.
+					if((b > (d - parseInt(obj1.height))) && (b < (d + parseInt(obj2.height)))){
+						obj1.style.left = c + parseInt(obj2.width) + "px"; //left side of enemy
 					}
 			}
 	}
 
 	if(downArrowDown && attack){
-		if((playerY > (enemyY - player.height - 5)) && (playerY < enemyY + enemy1.height) ){
-				if((playerX > (enemyX - parseInt(player.width) )) && (player.offsetLeft < (enemy1.offsetLeft + enemy1.width))){
-					player.style.top = enemy1.offsetTop - player.height + "px";
+		if((b > (d - obj1.height - 5)) && (b < d + obj2.height) ){
+				if((a > (c - parseInt(obj1.width) )) && (obj1.offsetLeft < (obj2.offsetLeft + obj2.width))){
+					obj1.style.top = obj2.offsetTop - obj1.height + "px";
 				}
 		}
 	}
@@ -277,11 +291,12 @@ function makeIt() {
 //Begin code for talking to characters
 //The text box for talking to NPCs
 var dialogueBox = document.getElementById('dialogue');
-dialogueBox.style.visibility = 'hidden';
 var talking = document.getElementById('textBox');
 var heading = document.getElementById('person');
+dialogueBox.style.visibility = 'hidden';
 
-okay = 0;
+
+var okay = 0;
 function textBox() {
 	"use strict";
 	if( player.offsetTop > (enemy1.offsetTop - player.width - 10) && player.offsetTop < (enemy1.offsetTop + 100) && player.offsetLeft > (enemy1.offsetLeft - player.width - 10) && player.offsetLeft < (enemy1.offsetLeft + enemy1.width + 10)) {

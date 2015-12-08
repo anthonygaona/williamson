@@ -41,10 +41,14 @@ h1 {
 #town,
 #player,
 #enemy1,
-#enemyHealth {
+#enemyHealth,
+#girl {
   position: absolute;
 }
 #enemy1 {
+  border: 1px solid white;
+}
+#girl {
   border: 1px solid white;
 }
 #enemyHealth {
