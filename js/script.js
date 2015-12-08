@@ -1,11 +1,23 @@
-//var town; //set to entire map
 var player; //set to Williamson
-player = document.getElementById('player');
-player.style.border = "1px solid blue";
+		player = document.getElementById('player');
+		player.style.border = "1px solid blue";
 
+//parsed styles
+var playerX; //Left style, parsed in gameloop()
+var playerY; //Top style, parsed in gameloop()
+
+var gameWin = document.getElementById("gameWindow");
+
+//TESTING PURPOSES
+var output = document.getElementById('output');
+output.style.fontSize = "20px";
+//END TESTING
+
+//dimensions of game window
 var gameWidth = parseInt(window.getComputedStyle(document.querySelector('#gameWindow')).getPropertyValue('width'));
 var gameHeight = parseInt(window.getComputedStyle(document.querySelector('#gameWindow')).getPropertyValue('height'));
 
+//WASD
 var leftArrowDown = false;
 var rightArrowDown = false;
 var upArrowDown = false;
@@ -16,32 +28,49 @@ var attack = true;
 
 const PLAYER_SPEED = 15; //KEEP IT THIS NUMBER. Code depends this constant, being increments of 15.
 
+//Enemeies
 var enemy1 = document.getElementById('enemy1');
-enemy1.health = 100;
-
-var btnStart = document.getElementById('btnStart');
-var gameWin = document.getElementById("gameWindow");
-
-var map = document.getElementById('map');
-var gameTimer;
-
-//Status bar variables
-var status = document.getElementById('status');
-
-//parsed styles
-var playerX; //Left style, parsed in gameloop()
-var playerY; //Top style, parsed in gameloop()
+		enemy1.health = 100;
 
 var enemyX;
 var enemyHealth;
 
-var	town = document.getElementById('town');
+var btnStart = document.getElementById('btnStart'); //start button at beginning of game
 
+//Currently set to M
+var map = document.getElementById('map');
+
+var gameTimer;
+
+//Status bar health, weapon etc.
+var status = document.getElementById('status');
+
+//Background Map information
+var	town = document.getElementById('town');
 var townX; //left position of background map. Set in initializeGame()
 var townY; //top position of background map. Set in initializeGame()
 
+//Assets
+var weaponList = [
+	"images/bows1.png",
+	"images/sword1.png"
+	];
+
+var magicList = ["images/waves7.png",
+"images/fire.png",
+"images/falling3.png"];
+
+//changes weapons in status bar
+var primaryWeapon = document.getElementById("primaryWeapon");
+var secondaryWeapon = document.getElementById("secondaryWeapon");
+primaryWeapon.src = weaponList[0];
+secondaryWeapon.src = magicList[0];
+
+var weaponPosition = 1;
+var magicPosition = 1;
+
 // LET THE CODING BEGIN!
-////////////////////////////////////////////////////////////////////////////////////////
+/////////////////////////////////WILLIAMSON/////////////////////////////////
 
 //Start game
 function startGame(){
@@ -49,7 +78,6 @@ function startGame(){
 	initializeGame();
 }
 
-//Main Menu
 //hides start menu and loads game
 btnStart.addEventListener('click', startGame);
 
@@ -73,26 +101,6 @@ function initializeGame(){
 	//begins gameloop animation
 	var gameTimer = setInterval(gameloop, 50);
 }
-
-//changes weapons
-
-var primaryWeapon = document.getElementById("primaryWeapon");
-var secondaryWeapon = document.getElementById("secondaryWeapon");
-
-var weaponList = [
-	"images/bows1.png",
-	"images/sword1.png"
-	];
-
-var magicList = ["images/waves7.png",
-"images/fire.png",
-"images/falling3.png"];
-
-primaryWeapon.src = weaponList[0];
-secondaryWeapon.src = magicList[0];
-
-var weaponPosition = 1;
-var magicPosition = 1;
 
 //first convo
 function convoONE() {
@@ -153,6 +161,7 @@ document.addEventListener('keyup', function(event){
 
 });
 
+//Begin Game loop
 function gameloop() {
 	//Moves williason
 	playerX = parseInt(player.style.left);
@@ -166,6 +175,7 @@ function gameloop() {
 	enemyHealth.style.top = (enemyY - 50) + "px";
 	enemyHealth.style.display = "none";
 
+	//player movement
 	if(rightArrowDown){
 		player.style.left = playerX + PLAYER_SPEED + 'px';
 		//changes player direction
@@ -185,20 +195,18 @@ function gameloop() {
 		player.style.top = playerY + PLAYER_SPEED + 'px';
 	}
 
-	// moveUp(playerY);
-	// quad2(playerY);
-
+	//because these two are in game loop they will constantly parse the background image's position
 	townX = parseInt(town.style.left);
 	townY = parseInt(town.style.top);
 
-	//map moving
+	//map moving conditionals. Depend on players position.
 	if(playerX > 1100) {
 		town.style.left = (townX - 1280) + "px";
 		player.style.left = "30px";
 	}
 	else if (playerX < 20) {
 		town.style.left = (townX + 1280) + "px";
-		player.style.left = "600px";
+		player.style.left = "1100px";
 	}
 	else if(playerY < 40) {
 		town.style.top = (townY + 720) +"px";
@@ -210,143 +218,129 @@ function gameloop() {
 	}
 	//end map moving
 
-	var output = document.getElementById('output');
-	output.style.fontSize = "20px";
-
-	//hitDetect(playerX, enemyX, enemy1, player);
-
 	makeIt(); //collision detection
-	//textBox();
 	enemyHealthBox();
 	convoONE();
+	textBox();
 
 	return (
 			//console.log(gameWin.style.backgroundPosition),
 			output.innerHTML = playerY + " = y position" + "<br/>" + playerX + " = x position"
 		);
-} //end game loop
+}
+//end game loop
 
-	//Map moving functions. Each according to the position of town image.
-	// function moveUp(y) {
-	// 	if(y < 40) {
-	// 		town.style.top = townY + 600 + "px";
-	// 	}
-	//   else if(y > 610) {
-	// 		//console.log("move down");
-	// 		town.style.top = (townY - 600) + "px";
-	// 		player.style.top = "150px";
-	// 		//return console.log();
-	// 	}
-	// }
+//attacking enemy functions
+function primaryAttack() {
+	if(true) {
+		console.log('hit');
+	}
+}
 
-	//attacking enemy functions
-	function primaryAttack() {
-		if(true) {
-			console.log('hit');
-		}
+//collision detection
+function makeIt() {
+	if(rightArrowDown && attack){
+					//first condition is for the left point and the second condition is for the right point
+					if( (playerX > (enemyX - parseInt(player.width) - 5) ) && (playerX < enemyX + parseInt(enemy1.width) - 15 ) ) {
+									if( (playerY > (enemyY - parseInt(player.height))) && (playerY < (enemyY + parseInt(enemy1.height))) ) {
+										player.style.left = enemyX - parseInt(player.width) + "px";
+									} //third condition
+					} //second condition
+	} //first condition
+
+	if(upArrowDown && attack){
+			if( (playerY > enemyY - 5) && (playerY < (enemyY + parseInt(enemy1.height) + 5 )) ) {
+						if( (playerX > (enemyX - parseInt(player.width)) ) && (playerX < (enemyX + parseInt(enemy1.width))) ){
+							player.style.top = enemyY + parseInt(enemy1.height)  + "px";
+						}
+			}
 	}
 
-	//collision detection
-	function makeIt() {
-		if(rightArrowDown && attack){
-						//first condition is for the left point and the second condition is for the right point
-						if( (playerX > (enemyX - parseInt(player.width) - 5) ) && (playerX < enemyX + parseInt(enemy1.width) - 15 ) ) {
-										if( (playerY > (enemyY - parseInt(player.height))) && (playerY < (enemyY + parseInt(enemy1.height))) ) {
-											player.style.left = enemyX - parseInt(player.width) + "px";
-										} //third condition
-						} //second condition
-		} //first condition
-
-		if(upArrowDown && attack){
-				if( (playerY > enemyY - 5) && (playerY < (enemyY + parseInt(enemy1.height) + 5 )) ) {
-							if( (playerX > (enemyX - parseInt(player.width)) ) && (playerX < (enemyX + parseInt(enemy1.width))) ){
-								player.style.top = enemyY + parseInt(enemy1.height)  + "px";
-							}
-				}
-		}
-
-		if(leftArrowDown && attack){
-				if((player.offsetLeft < (enemy1.offsetLeft + parseInt(enemy1.width) - 5)) && (player.offsetLeft > enemy1.offsetLeft )){
-					//second if statement checks to see if the players top is between the top of the obstacle and the bottom of the obstacle. But in order to make sure the player does walk through the top, the player.height must be subtracted from the obstacle.offsetTop.
-						if((playerY > (enemyY - parseInt(player.height))) && (playerY < (enemyY + parseInt(enemy1.height)))){
-							player.style.left = enemyX + parseInt(enemy1.width) + "px"; //left side of enemy
-						}
-				}
-		}
-
-		if(downArrowDown && attack){
-			if((playerY > (enemyY - player.height - 5)) && (playerY < enemyY + enemy1.height) ){
-					if((playerX > (enemyX - parseInt(player.width) )) && (player.offsetLeft < (enemy1.offsetLeft + enemy1.width))){
-						player.style.top = enemy1.offsetTop - player.height + "px";
+	if(leftArrowDown && attack){
+			if((player.offsetLeft < (enemy1.offsetLeft + parseInt(enemy1.width) - 5)) && (player.offsetLeft > enemy1.offsetLeft )){
+				//second if statement checks to see if the players top is between the top of the obstacle and the bottom of the obstacle. But in order to make sure the player does walk through the top, the player.height must be subtracted from the obstacle.offsetTop.
+					if((playerY > (enemyY - parseInt(player.height))) && (playerY < (enemyY + parseInt(enemy1.height)))){
+						player.style.left = enemyX + parseInt(enemy1.width) + "px"; //left side of enemy
 					}
 			}
+	}
+
+	if(downArrowDown && attack){
+		if((playerY > (enemyY - player.height - 5)) && (playerY < enemyY + enemy1.height) ){
+				if((playerX > (enemyX - parseInt(player.width) )) && (player.offsetLeft < (enemy1.offsetLeft + enemy1.width))){
+					player.style.top = enemy1.offsetTop - player.height + "px";
+				}
 		}
-	} //function
+	}
+} //end collision detection
 
-	//The text box for talking to NPCs
-	var dialogueBox = document.getElementById('dialogue');
-	dialogueBox.style.visibility = 'hidden';
-	var talking = document.getElementById('textBox');
-	var heading = document.getElementById('person');
+//Begin code for talking to characters
+//The text box for talking to NPCs
+var dialogueBox = document.getElementById('dialogue');
+dialogueBox.style.visibility = 'hidden';
+var talking = document.getElementById('textBox');
+var heading = document.getElementById('person');
 
-	//be sure to comment out textbox below
-	// okay = 0;
-	// function textBox() {
-	// 	"use strict";
-	// 	if( player.offsetTop > (enemy1.offsetTop - player.width - 10) && player.offsetTop < (enemy1.offsetTop + 100) && player.offsetLeft > (enemy1.offsetLeft - player.width - 10) && player.offsetLeft < (enemy1.offsetLeft + enemy1.width + 10)) {
-	// 		console.log('you are near the enemy');
-	// 		if(okay == 1) {
-	// 			person.innerHTML = 'Goblin says:';
-	// 			console.log("hi");
-	// 			dialogueBox.style.visibility = 'visible';
-	// 			talking.innerHTML = 'hi';
-	// 			}
-	// 		else if(okay == 2) {
-	// 			console.log("whats your name?");
-	// 			talking.innerHTML = 'whats your name?';
-	// 			}
-	// 		else if (okay == 3) {
-	// 			console.log("bye!");
-	// 			talking.innerHTML = 'see you later!';
-	// 			okay++;
-	// 			}
-	// 		else if (okay == 5) {
-	// 			dialogueBox.style.visibility = 'hidden';
-	// 			okay -= 5;
-	// 		}
-	// 	} // first if. checks if player is near bot.
-	// } // function
+okay = 0;
+function textBox() {
+	"use strict";
+	if( player.offsetTop > (enemy1.offsetTop - player.width - 10) && player.offsetTop < (enemy1.offsetTop + 100) && player.offsetLeft > (enemy1.offsetLeft - player.width - 10) && player.offsetLeft < (enemy1.offsetLeft + enemy1.width + 10)) {
+		console.log('you are near the enemy');
+		if(okay == 1) {
+			person.innerHTML = 'Goblin says:';
+			console.log("hi");
+			dialogueBox.style.visibility = 'visible';
+			talking.innerHTML = 'hi';
+			}
+		else if(okay == 2) {
+			console.log("whats your name?");
+			talking.innerHTML = 'whats your name?';
+			}
+		else if (okay == 3) {
+			console.log("bye!");
+			talking.innerHTML = 'see you later!';
+			okay++;
+			}
+		else if (okay == 5) {
+			dialogueBox.style.visibility = 'hidden';
+			okay -= 5;
+		}
+	} // first if. checks if player is near bot.
+} // function
 
 
-	// enemy1.addEventListener('click', function() {
-	// 	if( player.offsetTop > (enemy1.offsetTop - player.width - 10) && player.offsetTop < (enemy1.offsetTop + 100) && player.offsetLeft > (enemy1.offsetLeft - player.width - 10) && player.offsetLeft < (enemy1.offsetLeft + enemy1.width + 10)) {
-	// 		okay++;
-	// 		if(okay > 5) {
-	// 			okay = 0;
-	// 		}
-	// 	}
-	// });
+enemy1.addEventListener('click', function() {
+	if( player.offsetTop > (enemy1.offsetTop - player.width - 10) && player.offsetTop < (enemy1.offsetTop + 100) && player.offsetLeft > (enemy1.offsetLeft - player.width - 10) && player.offsetLeft < (enemy1.offsetLeft + enemy1.width + 10)) {
+		okay++;
+		if(okay > 5) {
+			okay = 0;
+		}
+	}
+});
+//end code for talking to characters
 
-	function enemyHealthBox() {
-		"use strict";
-		if( player.offsetTop > (enemy1.offsetTop - player.width - 10) && player.offsetTop < (enemy1.offsetTop + 100) && player.offsetLeft > (enemy1.offsetLeft - player.width - 10) && player.offsetLeft < (enemy1.offsetLeft + enemy1.width + 10)) {
-			console.log('you are near the enemy');
-			enemyHealth.style.display = "block";
-		} // first if. checks if player is near bot.
-	} // function
+//Displays Enemies health
+function enemyHealthBox() {
+	"use strict";
+	// checks if player is near bot
+	if( player.offsetTop > (enemy1.offsetTop - player.width - 10) && player.offsetTop < (enemy1.offsetTop + 100) && player.offsetLeft > (enemy1.offsetLeft - player.width - 10) && player.offsetLeft < (enemy1.offsetLeft + enemy1.width + 10)) {
+		console.log('you are near the enemy');
+		enemyHealth.style.display = "block";
+	}
+} // function
 
 //var hit = Math.floor(Math.random() * 90);
 
-	enemy1.addEventListener('click', function() {
-		if( player.offsetTop > (enemy1.offsetTop - player.width - 10) && player.offsetTop < (enemy1.offsetTop + 100) && player.offsetLeft > (enemy1.offsetLeft - player.width - 10) && player.offsetLeft < (enemy1.offsetLeft + enemy1.width + 10)) {
-			enemy1.health -= Math.floor(Math.random() * 90);
-			enemyHealth.innerHTML = enemy1.health + "%";
-			if(enemy1.health == 0 || enemy1.health < 0) {
-				enemy1.style.display = "none";
-				enemyHealth.style.display = "none";
-				enemy1.style.zIndex = -1;
-				attack = false;
-				enemy1.health = 100;
-			}
-		}
-	});
+	// enemy1.addEventListener('click', function() {
+	// 	if( player.offsetTop > (enemy1.offsetTop - player.width - 10) && player.offsetTop < (enemy1.offsetTop + 100) && player.offsetLeft > (enemy1.offsetLeft - player.width - 10) && player.offsetLeft < (enemy1.offsetLeft + enemy1.width + 10)) {
+	// 		enemy1.health -= Math.floor(Math.random() * 90);
+	// 		enemyHealth.innerHTML = enemy1.health + "%";
+	// 		if(enemy1.health == 0 || enemy1.health < 0) {
+	// 			enemy1.style.display = "none";
+	// 			enemyHealth.style.display = "none";
+	// 			enemy1.style.zIndex = -1;
+	// 			attack = false;
+	// 			enemy1.health = 100;
+	// 		}
+	// 	}
+	// });
