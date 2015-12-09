@@ -25,7 +25,6 @@ body {
   width: 1280px;
   height: 720px;
   margin: 0 auto;
-  border: 1px solid white;
   background-image: url(../images/williamsonIntro.jpg);
 }
 #btnStart {
@@ -46,12 +45,6 @@ h1 {
 #playerHealth {
   position: absolute;
 }
-#enemy1 {
-  border: 1px solid white;
-}
-#girl {
-  border: 1px solid white;
-}
 #playerHealth {
   color: red;
   font-size: 26px;
@@ -59,8 +52,7 @@ h1 {
 }
 #enemyHealth {
   color: red;
-  font-size: 26px;
-  border-radius: 10px;
+  font-size: 40px;
 }
 #dialogue {
   position: absolute;
@@ -91,7 +83,7 @@ h1 {
   left: 220px;
   width: 800px;
   height: 600px;
-  background-color: blue;
+  background: url(../images/mapModal.jpg) no-repeat center center;
   color: black;
   display: none;
 }
@@ -99,7 +91,6 @@ h1 {
   width: 1280px;
   height: 150px;
   margin: 0 auto;
-  border: .border;
   background-image: url(../images/status.jpg);
   position: relative;
 }
@@ -109,23 +100,28 @@ h1 {
   position: absolute;
   top: 50px;
   left: 750px;
-  border: 1px solid white;
 }
 /* Health */
+#healthSection {
+  position: relative;
+  width: 274px;
+  height: 300px;
+  margin-left: 30px;
+  overflow: hidden;
+  padding: 0;
+}
 #healthBox {
-  background-image: url(../images/healthMeter.png);
   position: absolute;
   top: 20px;
-  left: 20px;
+  left: 0px;
   width: 254px;
   height: 88px;
   overflow: hidden;
-  z-index: 50;
+  z-index: 2;
 }
 #healthMeter {
   position: absolute;
-  top: 48px;
-  left: 63px;
+  z-index: 1;
 }
 /* Magic start */
 #magicBox {

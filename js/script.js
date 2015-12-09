@@ -1,8 +1,12 @@
 var player; //set to Williamson
 		player = document.getElementById('player');
-		player.style.border = "1px solid blue";
 var playerHealthNumber = 100;
 var playerHealth;
+
+//status bar elements
+var healthMeter = document.getElementById("healthMeter");
+healthMeter.style.left = "62px"; //keep at this number. this is the state of max health.
+healthMeter.style.top = "68px";
 
 //parsed styles
 var playerX; //Left style, parsed in gameloop()
@@ -221,7 +225,7 @@ function gameloop() {
 	girlY = parseInt(girl.style.top);
 
 	enemyHealth = document.getElementById("enemyHealth");
-	enemyHealth.style.left = (enemyX + 50) + "px";
+	enemyHealth.style.left = (enemyX + 20) + "px";
 	enemyHealth.style.top = (enemyY - 50) + "px";
 	enemyHealth.style.display = "none";
 
@@ -298,18 +302,6 @@ function gameloop() {
 function primaryAttack() {
 	if(true) {
 		console.log('hit');
-	}
-}
-
-function playerSource() {
-	//changing source of image depending on walking
-	if(leftArrowDown || rightArrowDown || upArrowDown || downArrowDown){
-		var player_src = player.src.split('/').pop();
-		if(player_src != "images/running.gif"){
-			player.src = "images/running.gif";
-		}
-	} else {
-		player.src = "images/run.png";
 	}
 }
 
@@ -405,7 +397,8 @@ function enemyHealthBox() {
 function playerHurt() {
 	if(attack2 && player.offsetTop > (enemy1.offsetTop - player.width - 10) && player.offsetTop < (enemy1.offsetTop + 100) && player.offsetLeft > (enemy1.offsetLeft - player.width - 10) && player.offsetLeft < (enemy1.offsetLeft + enemy1.width + 10)) {
 		playerHealthNumber -= 20;
-		playerHealth.innerHTML = playerHealthNumber;
+		playerHealth.innerHTML = ""; //This line is key. Keeps health bar from decreasing before game starts. do not remove.
+		healthMeter.style.left = (parseInt(healthMeter.style.left) - 20) + "px";
 	}
 }
 
@@ -416,7 +409,7 @@ var hit = Math.floor(Math.random() * 90);
 enemy1.addEventListener('click', function() {
 	if( attack2 && player.offsetTop > (enemy1.offsetTop - player.width - 10) && player.offsetTop < (enemy1.offsetTop + 100) && player.offsetLeft > (enemy1.offsetLeft - player.width - 10) && player.offsetLeft < (enemy1.offsetLeft + enemy1.width + 10)) {
 		enemy1.health -= Math.floor(Math.random() * 20);
-		enemyHealth.innerHTML = enemy1.health + "%";
+		enemyHealth.innerHTML = enemy1.health;
 		if(enemy1.health == 0 || enemy1.health < 0) {
 			enemy1.style.display = "none";
 			enemyHealth.style.display = "none";
@@ -426,4 +419,3 @@ enemy1.addEventListener('click', function() {
 		}
 	}
 });
-var playerSourceTimer = setInterval(playerSource, 60);

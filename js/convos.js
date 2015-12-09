@@ -6,7 +6,7 @@ var convo1 = [
   "Good luck"
 ];
 
-convo1.heading = "Goblinerino";
+convo1.heading = "Girl of the city";
 var convo_1 = 0;
 
 //Convo 2 Info
