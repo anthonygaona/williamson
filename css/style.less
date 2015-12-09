@@ -68,7 +68,7 @@ h1{
   cursor:pointer;
 }
 
-#town, #player, #enemy1, #enemyHealth, #girl {
+#town, #player, #enemy1, #enemyHealth, #girl, #playerHealth {
   position:absolute;
 }
 
@@ -78,6 +78,12 @@ h1{
 
 #girl {
   .border;
+}
+
+#playerHealth {
+  color: red;
+  font-size: 26px;
+  border-radius: 10px;
 }
 
 #enemyHealth {
@@ -138,117 +144,74 @@ h1{
   height: 150px;
   margin: 0 auto;
   border: .border;
-  background-color: black;
+  background-image: url(../images/status.jpg);
   position:relative;
 }
 
 .output {
   width: 300px;
-  .border;
   height: 50px;
-  position:absolute;
+  position: absolute;
   top: 50px;
-  left: 950px;
+  left: 750px;
+  .border;
 }
 
 /* Health */
 #healthBox {
+  background-image: url(../images/healthMeter.png);
   position: absolute;
-  .border;
   top: 20px;
   left: 20px;
-  width: 300px;
-  overflow:hidden;
+  width:254px;
+  height:88px;
+  overflow: hidden;
+  z-index:50;
 }
 
-#healthBox p {
-  margin:0;
-  padding:0;
-}
-
-#healthbar {
-  .border;
-  position: relative
-  width: 250px;
-  height: 20px;
-  top:5px;
-  left:5px;
-  background-color: #ccc;
-  overflow:hidden;
-}
-
-#currenthealth {
-  background-color: red;
-  position: absolute;
-  height:20px;
-  width:300px;
-  left:-80px;
+#healthMeter{
+position:absolute;
+top:48px;
+left:63px;
 }
 
 /* Magic start */
 #magicBox {
+  background-image: url(../images/magicMeter.png);
   position: absolute;
-  .border;
-  top: 80px;
-  left:20px;
-  width: 300px;
+  top: 50px;
+  left: 300px;
+  width: 256px;
+  height:57px;
   overflow: hidden;
+  z-index: 49;
+}
+#magicMeter{
+position:absolute;
+left:63px;
+top:18px;
 }
 
 #magicBox p {
-  margin:0;
-  padding:0;
+  margin: 0;
+  padding: 0;
 }
-
-#magicbar {
-  .border;
-  position: relative
-  width: 250px;
-  height: 20px;
-  top:5px;
-  left:5px;
-  background-color: #ccc;
-  overflow:hidden;
-}
-
-#currentmagic {
-  background-color: red;
-  position: absolute;
-  height:20px;
-  width:300px;
-  left:-80px;
-}
-
-
 
 /* Sword start */
 #primaryWeapon {
   position: absolute;
-  .border;
-  top: 20px;
-  left: 350px;
-}
 
+  top: 50px;
+  left: 1000px;
+}
 #secondaryWeapon {
   position: absolute;
-  .border;
-  top: 20px;
-  left: 500px;
-}
 
+  top: 50px;
+  left: 1100px;
+}
 #objective {
   position: absolute;
-  .border;
-  top:20px;
-  left:800px;
+  top: 50px;
+  left: 600px;
 }
-
-
-//Using javascript instead
-// .mapMoveDown {
-//   animation: animatedBackground 2s linear 1;
-// 	-moz-animation: animatedBackground 2s linear 1;
-// 	-webkit-animation: animatedBackground 2s linear 1;
-// 	-ms-animation: animatedBackground 2s linear 1;
-// 	-o-animation: animatedBackground 2s linear 1;
-// }

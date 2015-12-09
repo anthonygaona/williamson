@@ -42,7 +42,8 @@ h1 {
 #player,
 #enemy1,
 #enemyHealth,
-#girl {
+#girl,
+#playerHealth {
   position: absolute;
 }
 #enemy1 {
@@ -50,6 +51,11 @@ h1 {
 }
 #girl {
   border: 1px solid white;
+}
+#playerHealth {
+  color: red;
+  font-size: 26px;
+  border-radius: 10px;
 }
 #enemyHealth {
   color: red;
@@ -94,93 +100,66 @@ h1 {
   height: 150px;
   margin: 0 auto;
   border: .border;
-  background-color: black;
+  background-image: url(../images/status.jpg);
   position: relative;
 }
 .output {
   width: 300px;
-  border: 1px solid white;
   height: 50px;
   position: absolute;
   top: 50px;
-  left: 950px;
+  left: 750px;
+  border: 1px solid white;
 }
 /* Health */
 #healthBox {
+  background-image: url(../images/healthMeter.png);
   position: absolute;
-  border: 1px solid white;
   top: 20px;
   left: 20px;
-  width: 300px;
+  width: 254px;
+  height: 88px;
   overflow: hidden;
+  z-index: 50;
 }
-#healthBox p {
-  margin: 0;
-  padding: 0;
-}
-#healthbar {
-  border: 1px solid white;
-  position: relative
-  width: 250px;
-  height: 20px;
-  top: 5px;
-  left: 5px;
-  background-color: #ccc;
-  overflow: hidden;
-}
-#currenthealth {
-  background-color: red;
+#healthMeter {
   position: absolute;
-  height: 20px;
-  width: 300px;
-  left: -80px;
+  top: 48px;
+  left: 63px;
 }
 /* Magic start */
 #magicBox {
+  background-image: url(../images/magicMeter.png);
   position: absolute;
-  border: 1px solid white;
-  top: 80px;
-  left: 20px;
-  width: 300px;
+  top: 50px;
+  left: 300px;
+  width: 256px;
+  height: 57px;
   overflow: hidden;
+  z-index: 49;
+}
+#magicMeter {
+  position: absolute;
+  left: 63px;
+  top: 18px;
 }
 #magicBox p {
   margin: 0;
   padding: 0;
 }
-#magicbar {
-  border: 1px solid white;
-  position: relative
-  width: 250px;
-  height: 20px;
-  top: 5px;
-  left: 5px;
-  background-color: #ccc;
-  overflow: hidden;
-}
-#currentmagic {
-  background-color: red;
-  position: absolute;
-  height: 20px;
-  width: 300px;
-  left: -80px;
-}
 /* Sword start */
 #primaryWeapon {
   position: absolute;
-  border: 1px solid white;
-  top: 20px;
-  left: 350px;
+  top: 50px;
+  left: 1000px;
 }
 #secondaryWeapon {
   position: absolute;
-  border: 1px solid white;
-  top: 20px;
-  left: 500px;
+  top: 50px;
+  left: 1100px;
 }
 #objective {
   position: absolute;
-  border: 1px solid white;
-  top: 20px;
-  left: 800px;
+  top: 50px;
+  left: 600px;
 }

@@ -1,8 +1,8 @@
 //Convo 1 Info
 var convo1 = [
   "Williamson, brave hero!",
-  "You must defeat Enfield by summer's end!",
-  "Seek out the Low Key Sorcerer to learn the ways of magic",
+  "Enfield's men have taken over the city!",
+  "Seek out the Low Key Sorcerer to learn the ways of magic to defeat Enfield and his army!",
   "Good luck"
 ];
 

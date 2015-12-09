@@ -45,12 +45,13 @@
       </div>
 
       <img id="town" src="images/town.png" />
-      <!-- Willaimson Running -->
+      <!-- Willaimson -->
       <img id="player" src="images/run.png" />
+      <div id="playerHealth"></div>
       <!-- enemy sprite -->
       <img id="enemy1" class="click" src="images/Enemy1.png" />
       <!-- Displays enemy health -->
-      <div id="enemyHealth">100%</div>
+      <div id="enemyHealth"></div>
       <!-- Girl -->
       <img id="girl" class="click" src="images/girl_stand.png" alt="Girl" />
 
@@ -66,17 +67,15 @@
   <div id="status">
     <div id="output" class="output"></div>
     <div id="healthBox">
-      <div id="healthbar">
-        <div id="currenthealth">health</div>
+      <div id="healthMeter">
+        <img src="images/healthLife.png">
       </div>
-      <p>HEALTH BAR</p>
     </div>
 
     <div id="magicBox">
-      <div id="magicbar">
-        <div id="currentmagic">magic</div>
+      <div id="magicMeter">
+        <img src="images/magicLife.png" >
       </div>
-      <p>Magic bar</p>
     </div>
 
     <img id="primaryWeapon" class="button" src="" />
@@ -88,8 +87,7 @@
           <li>Kill Boss</li>
         </ul>
     </div>
-
-  </div>
+  </div> <!-- end status -->
 
   <!-- jQuery -->
   <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.11.3/jquery.min.js"></script>

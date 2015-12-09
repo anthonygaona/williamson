@@ -1,7 +1,8 @@
 var player; //set to Williamson
 		player = document.getElementById('player');
 		player.style.border = "1px solid blue";
-var playerHealth = 100;
+var playerHealthNumber = 100;
+var playerHealth;
 
 //parsed styles
 var playerX; //Left style, parsed in gameloop()
@@ -174,8 +175,8 @@ function girlPlacement() {
 function enemy1Placement() {
 	if(town.style.left == "-1280px" && town.style.top == "0px") {
 		enemy1.style.visibility = "visible";
-		enemy1.style.left = "200px";
-		enemy1.style.top = "600px";
+		enemy1.style.left = "800px";
+		enemy1.style.top = "500px";
 	}
 	else {
 		enemy1.style.visibility = "hidden";
@@ -224,6 +225,11 @@ function gameloop() {
 	enemyHealth.style.top = (enemyY - 50) + "px";
 	enemyHealth.style.display = "none";
 
+	playerHealth = document.getElementById("playerHealth")
+	playerHealth.style.left = (playerX + 50) + "px";
+	playerHealth.style.top = (playerY - 50) + "px";
+	playerHealth.style.display = "none";
+
 	//player movement
 	if(rightArrowDown){
 		player.style.left = playerX + PLAYER_SPEED + 'px';
@@ -267,16 +273,6 @@ function gameloop() {
 	}
 	//end map moving
 
-	//changing source of image depending on walking
-	if(leftArrowDown || rightArrowDown || upArrowDown || downArrowDown){
-		var player_src = player.src.split('/').pop();
-		if(player_src != "images/running.gif"){
-			player.src = "images/running.gif";
-		}
-	} else {
-		player.src = "images/run.png";
-	}
-
 	//These makeit() functions detect collision between player and objects
 	makeIt(playerX, playerY, enemyX, enemyY, player, enemy1, attack2); //collision detection
 
@@ -302,6 +298,18 @@ function gameloop() {
 function primaryAttack() {
 	if(true) {
 		console.log('hit');
+	}
+}
+
+function playerSource() {
+	//changing source of image depending on walking
+	if(leftArrowDown || rightArrowDown || upArrowDown || downArrowDown){
+		var player_src = player.src.split('/').pop();
+		if(player_src != "images/running.gif"){
+			player.src = "images/running.gif";
+		}
+	} else {
+		player.src = "images/run.png";
 	}
 }
 
@@ -389,14 +397,25 @@ function enemyHealthBox() {
 	if(attack2 && player.offsetTop > (enemy1.offsetTop - player.width - 10) && player.offsetTop < (enemy1.offsetTop + 100) && player.offsetLeft > (enemy1.offsetLeft - player.width - 10) && player.offsetLeft < (enemy1.offsetLeft + enemy1.width + 10)) {
 		console.log('you are near the enemy');
 		enemyHealth.style.display = "block";
+		playerHealth.style.display = "block";
 	}
 } // function
+
+//player health going down
+function playerHurt() {
+	if(attack2 && player.offsetTop > (enemy1.offsetTop - player.width - 10) && player.offsetTop < (enemy1.offsetTop + 100) && player.offsetLeft > (enemy1.offsetLeft - player.width - 10) && player.offsetLeft < (enemy1.offsetLeft + enemy1.width + 10)) {
+		playerHealthNumber -= 20;
+		playerHealth.innerHTML = playerHealthNumber;
+	}
+}
+
+var playerHurt = setInterval(playerHurt, 800);
 
 var hit = Math.floor(Math.random() * 90);
 
 enemy1.addEventListener('click', function() {
 	if( attack2 && player.offsetTop > (enemy1.offsetTop - player.width - 10) && player.offsetTop < (enemy1.offsetTop + 100) && player.offsetLeft > (enemy1.offsetLeft - player.width - 10) && player.offsetLeft < (enemy1.offsetLeft + enemy1.width + 10)) {
-		enemy1.health -= Math.floor(Math.random() * 90);
+		enemy1.health -= Math.floor(Math.random() * 20);
 		enemyHealth.innerHTML = enemy1.health + "%";
 		if(enemy1.health == 0 || enemy1.health < 0) {
 			enemy1.style.display = "none";
@@ -407,3 +426,4 @@ enemy1.addEventListener('click', function() {
 		}
 	}
 });
+var playerSourceTimer = setInterval(playerSource, 60);
