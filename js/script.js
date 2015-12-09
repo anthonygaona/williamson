@@ -1,6 +1,7 @@
 var player; //set to Williamson
 		player = document.getElementById('player');
 		player.style.border = "1px solid blue";
+var playerHealth = 100;
 
 //parsed styles
 var playerX; //Left style, parsed in gameloop()
@@ -26,7 +27,10 @@ var upArrowDown = false;
 var downArrowDown = false;
 
 //This boolean sets up whether an enemy is visible based on health
-var attack = true;
+var attack;
+
+//booleans that will be changed in game
+var attack2 = true;
 
 const PLAYER_SPEED = 15; //KEEP IT THIS NUMBER. Code depends this constant, being increments of 15.
 
@@ -97,25 +101,87 @@ function initializeGame(){
 	var obY = Math.floor(Math.random() * gameHeight/2);
 
 	//sets random position of enemy
-	enemy1.style.top = obX + "px";
-	enemy1.style.left = obY + "px";
+	// enemy1.style.top = obX + "px";
+	// enemy1.style.left = obY + "px";
 
 	//begins gameloop animation
 	var gameTimer = setInterval(gameloop, 50);
+
+	//Listens to events when user preses down on keyboard
+	document.addEventListener('keydown', function(event){
+		//player movement
+		switch(event.keyCode) {
+			case 65:
+				leftArrowDown = true;
+				player.className = "flip";
+				break;
+			case 68:
+				rightArrowDown = true;
+				player.className = "";
+				break;
+			case 87:
+				upArrowDown = true;
+				break;
+			case 83:
+				downArrowDown = true;
+				break;
+		}
+
+		if(event.keyCode == 80) changePic();
+	  if(event.keyCode == 76) changePic2();
+
+		//shows map
+		if(event.keyCode == 77) map.style.display = "block";
+	});
+
+	//Listens when user releases the keyboard
+	document.addEventListener('keyup', function(event){
+		switch(event.keyCode) {
+			case 65:
+				leftArrowDown = false;
+				break;
+			case 68:
+				rightArrowDown =false;
+				break;
+			case 87:
+				upArrowDown = false;
+				break;
+			case 83:
+				downArrowDown = false;
+				break;
+		}
+		//hides map
+		if(event.keyCode == 77) map.style.display = "none";
+
+	});
 }
 
-//first convo (map position detection)
-function convoONE() {
+//placement of characters (map position detection)
+function girlPlacement() {
 	if(town.style.left == "-1280px" && town.style.top == "0px") {
-		console.log("hello world");
+		console.log("good placement");
+		attack = true;
 		girl.style.visibility = "visible";
-		girl.style.left = "500px";
+		girl.style.left = "300px";
 		girl.style.top = "300px";
 	}
 	else {
 		girl.style.visibility = "hidden";
+		attack = false;
 	}
 }
+
+function enemy1Placement() {
+	if(town.style.left == "-1280px" && town.style.top == "0px") {
+		enemy1.style.visibility = "visible";
+		enemy1.style.left = "200px";
+		enemy1.style.top = "600px";
+	}
+	else {
+		enemy1.style.visibility = "hidden";
+	}
+}
+//end of character placement
 
 function changePic(){
 	primaryWeapon.src = weaponList[weaponPosition];
@@ -140,34 +206,6 @@ function changePic2(){
 		console.log(magicList[weaponPosition])
 		);
 }
-
-
-//Listens to events when user preses down on keyboard
-document.addEventListener('keydown', function(event){
-	//player movement
-	if(event.keyCode==68) rightArrowDown = true;
-	if(event.keyCode==65) leftArrowDown  = true;
-	if(event.keyCode==87) upArrowDown = true;
-	if(event.keyCode==83) downArrowDown = true;
-
-	if(event.keyCode == 80) changePic();
-  if(event.keyCode == 76) changePic2();
-
-	//shows map
-	if(event.keyCode == 77) map.style.display = "block";
-});
-
-//Listens when user releases the keyboard
-document.addEventListener('keyup', function(event){
-	if(event.keyCode==68) rightArrowDown = false;
-	if(event.keyCode==65) leftArrowDown = false;
-	if(event.keyCode==87) upArrowDown = false;
-	if(event.keyCode==83) downArrowDown = false;
-
-	//hides map
-	if(event.keyCode == 77) map.style.display = "none";
-
-});
 
 //Begin Game loop
 function gameloop() {
@@ -229,13 +267,29 @@ function gameloop() {
 	}
 	//end map moving
 
+	//changing source of image depending on walking
+	if(leftArrowDown || rightArrowDown || upArrowDown || downArrowDown){
+		var player_src = player.src.split('/').pop();
+		if(player_src != "images/running.gif"){
+			player.src = "images/running.gif";
+		}
+	} else {
+		player.src = "images/run.png";
+	}
+
 	//These makeit() functions detect collision between player and objects
-	makeIt(playerX, playerY, enemyX, enemyY, player, enemy1); //collision detection
-	makeIt(playerX, playerY, girlX, girlY, player, girl); //collision detection
+	makeIt(playerX, playerY, enemyX, enemyY, player, enemy1, attack2); //collision detection
+
+	makeIt(playerX, playerY, girlX, girlY, player, girl, attack); //collision detection
 
 	enemyHealthBox();
-	convoONE();
-	textBox();
+	//All character placements
+	girlPlacement(); //character placement
+	enemy1Placement();
+
+	//All conversations
+	textBox(player, girl, convo1, convo_1); //convo
+	//textBox(player, girl);
 
 	return (
 			//console.log(gameWin.style.backgroundPosition),
@@ -252,8 +306,8 @@ function primaryAttack() {
 }
 
 //collision detection
-function makeIt(a, b, c, d, obj1, obj2) {
-	if(rightArrowDown && attack){
+function makeIt(a, b, c, d, obj1, obj2, booly) {
+	if(rightArrowDown && booly){
 					//first condition is for the left point and the second condition is for the right point
 					if( (a > (c - parseInt(obj1.width) - 5) ) && (a < c + parseInt(obj2.width) - 15 ) ) {
 									if( (b > (d - parseInt(obj1.height))) && (b < (d + parseInt(obj2.height))) ) {
@@ -262,7 +316,7 @@ function makeIt(a, b, c, d, obj1, obj2) {
 					} //second condition
 	} //first condition
 
-	if(upArrowDown && attack){
+	if(upArrowDown && booly){
 			if( (b > d - 5) && (b < (d + parseInt(obj2.height) + 5 )) ) {
 						if( (a > (c - parseInt(obj1.width)) ) && (a < (c + parseInt(obj2.width))) ){
 							obj1.style.top = d + parseInt(obj2.height)  + "px";
@@ -270,7 +324,7 @@ function makeIt(a, b, c, d, obj1, obj2) {
 			}
 	}
 
-	if(leftArrowDown && attack){
+	if(leftArrowDown && booly){
 			if((obj1.offsetLeft < (obj2.offsetLeft + parseInt(obj2.width) - 5)) && (obj1.offsetLeft > obj2.offsetLeft )){
 				//second if statement checks to see if the plaayers top is between the top of the obstacle and the bottom of the obstacle. But in order to make sure the plaayer does walk through the top, the plaayer.height must be subtracted from the obstacle.offsetTop.
 					if((b > (d - parseInt(obj1.height))) && (b < (d + parseInt(obj2.height)))){
@@ -279,7 +333,7 @@ function makeIt(a, b, c, d, obj1, obj2) {
 			}
 	}
 
-	if(downArrowDown && attack){
+	if(downArrowDown && booly){
 		if((b > (d - obj1.height - 5)) && (b < d + obj2.height) ){
 				if((a > (c - parseInt(obj1.width) )) && (obj1.offsetLeft < (obj2.offsetLeft + obj2.width))){
 					obj1.style.top = obj2.offsetTop - obj1.height + "px";
@@ -295,67 +349,61 @@ var talking = document.getElementById('textBox');
 var heading = document.getElementById('person');
 dialogueBox.style.visibility = 'hidden';
 
-
-var okay = 0;
-function textBox() {
+function textBox(a, b, c, d) {
 	"use strict";
-	if( player.offsetTop > (enemy1.offsetTop - player.width - 10) && player.offsetTop < (enemy1.offsetTop + 100) && player.offsetLeft > (enemy1.offsetLeft - player.width - 10) && player.offsetLeft < (enemy1.offsetLeft + enemy1.width + 10)) {
-		console.log('you are near the enemy');
-		if(okay == 1) {
-			person.innerHTML = 'Goblin says:';
-			console.log("hi");
+	if( a.offsetTop > (b.offsetTop - a.width - 10) && a.offsetTop < (b.offsetTop + 100) && a.offsetLeft > (b.offsetLeft - a.width - 10) && a.offsetLeft < (b.offsetLeft + b.width + 10)) {
+		if(d == 1) {
+			person.innerHTML = convo1.heading;
 			dialogueBox.style.visibility = 'visible';
-			talking.innerHTML = 'hi';
+			talking.innerHTML = c[0];
 			}
-		else if(okay == 2) {
-			console.log("whats your name?");
-			talking.innerHTML = 'whats your name?';
+		else if(d == 2) {
+			talking.innerHTML = c[1];
 			}
-		else if (okay == 3) {
-			console.log("bye!");
-			talking.innerHTML = 'see you later!';
-			okay++;
+		else if (d == 3) {
+			talking.innerHTML = c[2];
 			}
-		else if (okay == 5) {
-			dialogueBox.style.visibility = 'hidden';
-			okay -= 5;
-		}
+		else if (d == 4) {
+			talking.innerHTML = c[3];
+			}
 	} // first if. checks if player is near bot.
 } // function
 
-
-enemy1.addEventListener('click', function() {
-	if( player.offsetTop > (enemy1.offsetTop - player.width - 10) && player.offsetTop < (enemy1.offsetTop + 100) && player.offsetLeft > (enemy1.offsetLeft - player.width - 10) && player.offsetLeft < (enemy1.offsetLeft + enemy1.width + 10)) {
-		okay++;
-		if(okay > 5) {
-			okay = 0;
+//convo1
+girl.addEventListener('click', apples);
+function apples() {
+	if( player.offsetTop > (girl.offsetTop - player.width - 10) && player.offsetTop < (girl.offsetTop + 100) && player.offsetLeft > (girl.offsetLeft - player.width - 10) && player.offsetLeft < (girl.offsetLeft + girl.width + 10)) {
+		convo_1++;
+		if(convo_1 > 4) {
+			convo_1 = 0;
+			dialogueBox.style.visibility = 'hidden';
 		}
 	}
-});
-//end code for talking to characters
+}
+//END code for talking to characters
 
 //Displays Enemies health
 function enemyHealthBox() {
 	"use strict";
 	// checks if player is near bot
-	if( player.offsetTop > (enemy1.offsetTop - player.width - 10) && player.offsetTop < (enemy1.offsetTop + 100) && player.offsetLeft > (enemy1.offsetLeft - player.width - 10) && player.offsetLeft < (enemy1.offsetLeft + enemy1.width + 10)) {
+	if(attack2 && player.offsetTop > (enemy1.offsetTop - player.width - 10) && player.offsetTop < (enemy1.offsetTop + 100) && player.offsetLeft > (enemy1.offsetLeft - player.width - 10) && player.offsetLeft < (enemy1.offsetLeft + enemy1.width + 10)) {
 		console.log('you are near the enemy');
 		enemyHealth.style.display = "block";
 	}
 } // function
 
-//var hit = Math.floor(Math.random() * 90);
+var hit = Math.floor(Math.random() * 90);
 
-	// enemy1.addEventListener('click', function() {
-	// 	if( player.offsetTop > (enemy1.offsetTop - player.width - 10) && player.offsetTop < (enemy1.offsetTop + 100) && player.offsetLeft > (enemy1.offsetLeft - player.width - 10) && player.offsetLeft < (enemy1.offsetLeft + enemy1.width + 10)) {
-	// 		enemy1.health -= Math.floor(Math.random() * 90);
-	// 		enemyHealth.innerHTML = enemy1.health + "%";
-	// 		if(enemy1.health == 0 || enemy1.health < 0) {
-	// 			enemy1.style.display = "none";
-	// 			enemyHealth.style.display = "none";
-	// 			enemy1.style.zIndex = -1;
-	// 			attack = false;
-	// 			enemy1.health = 100;
-	// 		}
-	// 	}
-	// });
+enemy1.addEventListener('click', function() {
+	if( attack2 && player.offsetTop > (enemy1.offsetTop - player.width - 10) && player.offsetTop < (enemy1.offsetTop + 100) && player.offsetLeft > (enemy1.offsetLeft - player.width - 10) && player.offsetLeft < (enemy1.offsetLeft + enemy1.width + 10)) {
+		enemy1.health -= Math.floor(Math.random() * 90);
+		enemyHealth.innerHTML = enemy1.health + "%";
+		if(enemy1.health == 0 || enemy1.health < 0) {
+			enemy1.style.display = "none";
+			enemyHealth.style.display = "none";
+			enemy1.style.zIndex = -1;
+			attack2 = false;
+			enemy1.health = 100;
+		}
+	}
+});
